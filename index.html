@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindfulConnect - AI Mental Health Platform for India 🇮🇳</title>
+    <meta name="description" content="AI Mental Health Platform for India with 18+ regional languages, 3D video calls, emotion detection, and multimedia generation. Built for Google Gen AI Exchange Hackathon.">
+    <meta name="keywords" content="mental health, AI, India, multilingual, video calls, emotion detection, healthcare, therapy">
+    <meta name="author" content="MindfulConnect Team">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="MindfulConnect - AI Mental Health Platform for India">
+    <meta property="og:description" content="Revolutionary AI-powered mental health support with 18+ Indian regional languages, 3D video calls, and multimedia generation.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourusername.github.io/mindful-connect">
+    <meta property="og:image" content="https://yourusername.github.io/mindful-connect/og-image.png">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MindfulConnect - AI Mental Health Platform for India">
+    <meta name="twitter:description" content="Revolutionary AI-powered mental health support with 18+ Indian regional languages">
+    <meta name="twitter:image" content="https://yourusername.github.io/mindful-connect/og-image.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'bounce-slow': 'bounce 2s infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .card-hover:hover .feature-icon {
+            transform: scale(1.1);
+        }
+        
+        .browser-header {
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .demo-banner {
+            background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            max-width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+        }
+        
+        .language-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .language-card {
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .language-card:hover {
+            border-color: #3b82f6;
+            background: #eff6ff;
+            transform: translateY(-2px);
+        }
+        
+        .typing-animation {
+            overflow: hidden;
+            border-right: 2px solid #3b82f6;
+            white-space: nowrap;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #3b82f6; }
+        }
+        
+        .feature-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid #e2e8f0;
+        }
+        
+        .feature-card:hover {
+            background: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 100%);
+            border-color: #cbd5e1;
+        }
+        
+        .icon-bounce {
+            animation: bounce 2s infinite;
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .glow-effect {
+            box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+        }
+        
+        .scroll-smooth {
+            scroll-behavior: smooth;
+        }
+        
+        /* Mobile optimizations */
+        @media (max-width: 768px) {
+            .modal-content {
+                margin: 1rem;
+                padding: 1.5rem;
+                max-height: 85vh;
+            }
+            
+            .language-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 0.75rem;
+            }
+            
+            .feature-card {
+                padding: 1.5rem;
+            }
+        }
+        
+        /* Loading animation */
+        .loading-dots {
+            display: inline-block;
+        }
+        
+        .loading-dots::after {
+            content: '';
+            animation: dots 1.5s steps(5, end) infinite;
+        }
+        
+        @keyframes dots {
+            0%, 20% { content: ''; }
+            40% { content: '.'; }
+            60% { content: '..'; }
+            80%, 100% { content: '...'; }
+        }
+        
+        /* Accessibility improvements */
+        .focus-visible:focus {
+            outline: 2px solid #3b82f6;
+            outline-offset: 2px;
+        }
+        
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .card-hover {
+                border: 2px solid #000;
+            }
+            
+            .feature-icon {
+                filter: contrast(2);
+            }
+        }
+        
+        /* Reduced motion support */
+        @media (prefers-reduced-motion: reduce) {
+            .card-hover {
+                transition: none;
+            }
+            
+            .feature-icon {
+                transition: none;
+            }
+            
+            .typing-animation {
+                animation: none;
+                border-right: none;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 scroll-smooth">
+    <!-- Browser Header -->
+    <div class="browser-header px-4 py-2">
+        <div class="flex items-center space-x-2">
+            <div class="flex space-x-1">
+                <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+            </div>
+            <div class="flex items-center space-x-2 ml-4">
+                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+                <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                </svg>
+            </div>
+            <div class="flex-1 mx-4">
+                <div class="bg-white border border-gray-300 rounded-lg px-3 py-1 text-sm text-gray-600">
+                    🔒 mindfulconnect.ai
+                </div>
+            </div>
+            <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Demo Banner -->
+    <div class="demo-banner text-white px-6 py-3">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-2 text-sm">
+                <span class="animate-pulse">🎯</span>
+                <span>Ready to share with the world?</span>
+            </div>
+            <button class="bg-white text-blue-600 px-4 py-1 rounded text-sm font-medium hover:bg-gray-100 transition-colors focus-visible:focus">
+                Publish
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="min-h-screen">
+        <!-- Hero Section -->
+        <div class="max-w-4xl mx-auto px-6 py-16 text-center">
+            <!-- Logo and Title -->
+            <div class="flex items-center justify-center mb-6 animate-float">
+                <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mr-4 shadow-lg glow-effect">
+                    <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-bold text-gradient">MindfulConnect</h1>
+            </div>
+            
+            <p class="text-xl text-gray-600 mb-4 max-w-2xl mx-auto typing-animation">
+                Your emotional companion powered by AI
+            </p>
+            
+            <div class="bg-yellow-100 border border-yellow-300 rounded-lg px-4 py-2 mb-8 inline-block">
+                <span class="text-yellow-800 text-sm font-medium">🎯 Demo Mode - Click any feature below to try it!</span>
+            </div>
+            
+            <button onclick="openFeature('ai-companion')" class="bg-purple-500 hover:bg-purple-600 text-white px-8 py-3 rounded-full font-semibold text-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 focus-visible:focus glow-effect">
+                Try AI Companion
+            </button>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="max-w-4xl mx-auto px-6 mb-16">
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- AI Companion -->
+                <div class="feature-card rounded-2xl p-8 shadow-sm card-hover cursor-pointer" onclick="openFeature('ai-companion')">
+                    <div class="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center mb-6 feature-icon">
+                        <svg class="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">AI Companion</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Chat with Aura, your multilingual AI companion that understands your emotions in 18+ Indian languages
+                    </p>
+                </div>
+
+                <!-- Virtual Community -->
+                <div class="feature-card rounded-2xl p-8 shadow-sm card-hover cursor-pointer" onclick="openFeature('virtual-community')">
+                    <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mb-6 feature-icon">
+                        <svg class="w-6 h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Virtual Community</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Connect with others in our 3D virtual world, share experiences, and build meaningful relationships
+                    </p>
+                </div>
+
+                <!-- Mood-Based Creation -->
+                <div class="feature-card rounded-2xl p-8 shadow-sm card-hover cursor-pointer" onclick="openFeature('mood-creation')">
+                    <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mb-6 feature-icon">
+                        <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zM21 5a2 2 0 00-2-2h-4a2 2 0 00-2 2v12a4 4 0 004 4h4a2 2 0 002-2V5z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Mood-Based Creation</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Generate personalized art, music, and stories based on your emotional state and cultural preferences
+                    </p>
+                </div>
+
+                <!-- Emergency Support -->
+                <div class="feature-card rounded-2xl p-8 shadow-sm card-hover cursor-pointer" onclick="openFeature('emergency-support')">
+                    <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mb-6 feature-icon">
+                        <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Emergency Support</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        24/7 crisis support with Indian helplines, emergency contacts, and immediate professional assistance
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="gradient-bg text-white py-16">
+            <div class="max-w-4xl mx-auto px-6 text-center">
+                <h2 class="text-3xl font-bold mb-4">Ready to feel understood?</h2>
+                <p class="text-xl mb-8 opacity-90">
+                    Join thousands of Indians finding emotional support in their native language
+                </p>
+                <button onclick="openFeature('ai-companion')" class="bg-white text-purple-600 px-8 py-3 rounded-full font-semibold text-lg hover:shadow-lg transition-all duration-200 transform hover:scale-105 focus-visible:focus">
+                    Try Demo Now
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 py-8 mt-16">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <div class="flex items-center justify-center mb-4">
+                <div class="w-8 h-8 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center mr-2">
+                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                    </svg>
+                </div>
+                <span class="text-lg font-semibold text-gray-900">MindfulConnect</span>
+            </div>
+            <p class="text-gray-600 text-sm mb-4">
+                Empowering mental wellness through AI technology • Made with ❤️ for India 🇮🇳
+            </p>
+            <div class="flex justify-center space-x-6 text-sm text-gray-500">
+                <a href="#" class="hover:text-gray-700 transition-colors">About</a>
+                <a href="#" class="hover:text-gray-700 transition-colors">Privacy</a>
+                <a href="#" class="hover:text-gray-700 transition-colors">Terms</a>
+                <a href="#" class="hover:text-gray-700 transition-colors">Support</a>
+            </div>
+            <div class="mt-4 text-xs text-gray-400">
+                Built for Google Gen AI Exchange Hackathon 2024
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <!-- AI Companion Modal -->
+    <div id="ai-companion-modal" class="modal">
+        <div class="modal-content w-full max-w-4xl">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-900">🤖 AI Companion - Demo</h2>
+                <button onclick="closeModal('ai-companion-modal')" class="text-gray-500 hover:text-gray-700 focus-visible:focus">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                <h3 class="font-semibold text-blue-900 mb-2">🇮🇳 18+ Indian Regional Languages Supported:</h3>
+                <div class="language-grid">
+                    <div class="language-card" onclick="selectLanguage('hindi')">
+                        <div class="text-2xl mb-2">🇮🇳</div>
+                        <div class="font-medium">Hindi</div>
+                        <div class="text-sm text-gray-600">हिन्दी</div>
+                    </div>
+                    <div class="language-card" onclick="selectLanguage('bengali')">
+                        <div class="text-2xl mb-2">🏛️</div>
+                        <div class="font-medium">Bengali</div>
+                        <div class="text-sm text-gray-600">বাংলা</div>
+                    </div>
+                    <div class="language-card" onclick="selectLanguage('telugu')">
+                        <div class="text-2xl mb-2">🏛️</div>
+                        <div class="font-medium">Telugu</div>
+                        <div class="text-sm text-gray-600">తెలుగు</div>
+                    </div>
+                    <div class="language-card" onclick="selectLanguage('tamil')">
+                        <div class="text-2xl mb-2">🏛️</div>
+                        <div class="font-medium">Tamil</div>
+                        <div class="text-sm text-gray-600">தமிழ்</div>
+                    </div>
+                    <div class="language-card" onclick="selectLanguage('marathi')">
+                        <div class="text-2xl mb-2">🏛️</div>
+                        <div class="font-medium">Marathi</div>
+                        <div class="text-sm text-gray-600">मराठी</div>
+                    </div>
+                    <div class="language-card" onclick="selectLanguage('gujarati')">
+                        <div class="text-2xl mb-2">🏛️</div>
+                        <div class="font-medium">Gujarati</div>
+                        <div class="text-sm text-gray-600">ગુજરાતી</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gray-50 rounded-lg p-6 mb-6">
+                <h3 class="font-semibold mb-4">🎥 Revolutionary Features:</h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="flex items-center space-x-3">
+                        <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                        </svg>
+                        <span>3D AI Avatar Video Calls</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path>
+                        </svg>
+                        <span>Real-time Emotion Detection</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"></path>
+                        </svg>
+                        <span>Voice Recognition</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <svg class="w-5 h-5 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>Multilingual Support</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+                <h3 class="font-semibold text-green-900 mb-2">💬 Sample Conversation:</h3>
+                <div class="space-y-3">
+                    <div class="bg-white rounded-lg p-3 border-l-4 border-blue-500">
+                        <div class="text-sm text-gray-600 mb-1">You:</div>
+                        <div class="text-gray-800">"मैं आज बहुत परेशान हूं" (I'm very worried today)</div>
+                    </div>
+                    <div class="bg-white rounded-lg p-3 border-l-4 border-green-500">
+                        <div class="text-sm text-gray-600 mb-1">AI Companion:</div>
+                        <div class="text-gray-800">"मैं समझ सकता हूं कि आप परेशान हैं। क्या आप मुझे बताना चाहेंगे कि क्या हुआ है? मैं यहां आपकी मदद के लिए हूं।" (I understand you're worried. Would you like to tell me what happened? I'm here to help you.)</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <p class="text-gray-600 mb-4">This is a demo version. In the full version, you would have:</p>
+                <ul class="text-left text-gray-600 mb-6 space-y-2">
+                    <li>• Real-time AI conversations in your preferred language</li>
+                    <li>• Face-to-face video calls with 3D AI avatar</li>
+                    <li>• Emotion detection through camera and text analysis</li>
+                    <li>• Personalized therapy sessions and content generation</li>
+                    <li>• Crisis detection with immediate emergency support</li>
+                </ul>
+                <button onclick="closeModal('ai-companion-modal')" class="bg-purple-500 text-white px-6 py-2 rounded-lg hover:bg-purple-600 transition-colors focus-visible:focus">
+                    Close Demo
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Virtual Community Modal -->
+    <div id="virtual-community-modal" class="modal">
+        <div class="modal-content w-full max-w-4xl">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-900">🌍 Virtual Community - Demo</h2>
+                <button onclick="closeModal('virtual-community-modal')" class="text-gray-500 hover:text-gray-700 focus-visible:focus">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-6 mb-6">
+                <h3 class="font-semibold mb-4">🎮 3D Virtual World Features:</h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-white rounded-lg p-4">
+                        <h4 class="font-medium mb-2">🏛️ Virtual Spaces</h4>
+                        <p class="text-sm text-gray-600">Immersive 3D environments for social interaction</p>
+                        <div class="mt-2 text-xs text-blue-600">• Meditation Gardens • Support Circles • Cultural Spaces</div>
+                    </div>
+                    <div class="bg-white rounded-lg p-4">
+                        <h4 class="font-medium mb-2">👤 Custom Avatars</h4>
+                        <p class="text-sm text-gray-600">Personalize your virtual representation</p>
+                        <div class="mt-2 text-xs text-blue-600">• Indian Cultural Outfits • Emotion Expressions • Accessibility Options</div>
+                    </div>
+                    <div class="bg-white rounded-lg p-4">
+                        <h4 class="font-medium mb-2">🤝 Social Connections</h4>
+                        <p class="text-sm text-gray-600">Connect with others based on shared experiences</p>
+                        <div class="mt-2 text-xs text-blue-600">• Support Groups • Language Communities • Interest Circles</div>
+                    </div>
+                    <div class="bg-white rounded-lg p-4">
+                        <h4 class="font-medium mb-2">🏆 Gamification</h4>
+                        <p class="text-sm text-gray-600">Earn XP, levels, and badges for positive interactions</p>
+                        <div class="mt-2 text-xs text-blue-600">• Wellness Streaks • Helping Others • Community Building</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+                <h3 class="font-semibold text-yellow-900 mb-2">🎯 Community Guidelines:</h3>
+                <div class="grid md:grid-cols-2 gap-4 text-sm">
+                    <div>
+                        <h4 class="font-medium text-yellow-800 mb-1">✅ Encouraged:</h4>
+                        <ul class="text-yellow-700 space-y-1">
+                            <li>• Sharing positive experiences</li>
+                            <li>• Supporting others with empathy</li>
+                            <li>• Respecting cultural differences</li>
+                            <li>• Practicing mindfulness together</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-medium text-yellow-800 mb-1">❌ Not Allowed:</h4>
+                        <ul class="text-yellow-700 space-y-1">
+                            <li>• Sharing personal information</li>
+                            <li>• Giving medical advice</li>
+                            <li>• Discriminatory behavior</li>
+                            <li>• Spam or promotional content</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <p class="text-gray-600 mb-4">Experience the future of mental health support through virtual reality!</p>
+                <div class="bg-gray-100 rounded-lg p-4 mb-4">
+                    <p class="text-sm text-gray-700 italic">"In the full version, you would enter a beautiful 3D world where you can walk around, interact with others, and participate in group activities - all while maintaining your privacy and safety."</p>
+                </div>
+                <button onclick="closeModal('virtual-community-modal')" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors focus-visible:focus">
+                    Close Demo
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mood Creation Modal -->
+    <div id="mood-creation-modal" class="modal">
+        <div class="modal-content w-full max-w-4xl">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-900">🎨 Mood-Based Creation - Demo</h2>
+                <button onclick="closeModal('mood-creation-modal')" class="text-gray-500 hover:text-gray-700 focus-visible:focus">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6 mb-6">
+                <div class="bg-pink-50 rounded-lg p-6 text-center">
+                    <svg class="w-12 h-12 text-pink-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
+                    <h3 class="font-semibold mb-2">AI Image Generation</h3>
+                    <p class="text-sm text-gray-600">Create healing artwork based on your emotions</p>
+                    <div class="mt-3 text-xs text-pink-600">
+                        • Mandala Art • Nature Scenes • Abstract Expressions
+                    </div>
+                </div>
+                <div class="bg-blue-50 rounded-lg p-6 text-center">
+                    <svg class="w-12 h-12 text-blue-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                    </svg>
+                    <h3 class="font-semibold mb-2">AI Video Creation</h3>
+                    <p class="text-sm text-gray-600">Generate personalized therapeutic videos</p>
+                    <div class="mt-3 text-xs text-blue-600">
+                        • Guided Meditations • Breathing Exercises • Affirmations
+                    </div>
+                </div>
+                <div class="bg-green-50 rounded-lg p-6 text-center">
+                    <svg class="w-12 h-12 text-green-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
+                    </svg>
+                    <h3 class="font-semibold mb-2">AI Music Composition</h3>
+                    <p class="text-sm text-gray-600">Create calming music for your mood</p>
+                    <div class="mt-3 text-xs text-green-600">
+                        • Ragas • Ambient Sounds • Binaural Beats
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-orange-50 border border-orange-200 rounded-lg p-4 mb-6">
+                <h3 class="font-semibold text-orange-900 mb-2">🎵 Spotify Integration - Indian Music Therapy:</h3>
+                <div class="grid md:grid-cols-4 gap-4">
+                    <div class="text-center">
+                        <div class="text-2xl mb-2">🎬</div>
+                        <div class="font-medium">Bollywood</div>
+                        <div class="text-xs text-orange-600">Uplifting Songs</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl mb-2">🎼</div>
+                        <div class="font-medium">Classical</div>
+                        <div class="text-xs text-orange-600">Ragas for Healing</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl mb-2">🪕</div>
+                        <div class="font-medium">Folk</div>
+                        <div class="text-xs text-orange-600">Regional Melodies</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl mb-2">🧘</div>
+                        <div class="font-medium">Meditation</div>
+                        <div class="text-xs text-orange-600">Mindfulness Music</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-purple-50 border border-purple-200 rounded-lg p-4 mb-6">
+                <h3 class="font-semibold text-purple-900 mb-2">✨ Sample Creations Based on Mood:</h3>
+                <div class="space-y-3">
+                    <div class="bg-white rounded-lg p-3 border-l-4 border-blue-500">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <div class="font-medium">Feeling Anxious</div>
+                                <div class="text-sm text-gray-600">Generated: Calming ocean waves with soft sitar music</div>
+                            </div>
+                            <div class="text-blue-500 text-sm">🌊 Audio</div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg p-3 border-l-4 border-green-500">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <div class="font-medium">Feeling Happy</div>
+                                <div class="text-sm text-gray-600">Generated: Vibrant mandala art with celebration colors</div>
+                            </div>
+                            <div class="text-green-500 text-sm">🎨 Image</div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-lg p-3 border-l-4 border-purple-500">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <div class="font-medium">Feeling Sad</div>
+                                <div class="text-sm text-gray-600">Generated: Guided meditation video with gentle affirmations</div>
+                            </div>
+                            <div class="text-purple-500 text-sm">🎥 Video</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <p class="text-gray-600 mb-4">Transform your emotions into beautiful, healing content!</p>
+                <button onclick="closeModal('mood-creation-modal')" class="bg-pink-500 text-white px-6 py-2 rounded-lg hover:bg-pink-600 transition-colors focus-visible:focus">
+                    Close Demo
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Emergency Support Modal -->
+    <div id="emergency-support-modal" class="modal">
+        <div class="modal-content w-full max-w-4xl">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-900">🚨 Emergency Support - Demo</h2>
+                <button onclick="closeModal('emergency-support-modal')" class="text-gray-500 hover:text-gray-700 focus-visible:focus">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="bg-red-50 border border-red-200 rounded-lg p-6 mb-6">
+                <h3 class="font-semibold text-red-900 mb-4">🇮🇳 Indian Mental Health Crisis Helplines:</h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-white rounded-lg p-4 border-l-4 border-red-500">
+                        <h4 class="font-semibold text-red-700">KIRAN Mental Health</h4>
+                        <p class="text-lg font-mono text-red-800">1800-599-0019</p>
+                        <p class="text-sm text-gray-600">24/7 Toll-free helpline</p>
+                        <p class="text-xs text-red-600 mt-1">Ministry of Social Justice & Empowerment</p>
+                    </div>
+                    <div class="bg-white rounded-lg p-4 border-l-4 border-red-500">
+                        <h4 class="font-semibold text-red-700">Vandrevala Foundation</h4>
+                        <p class="text-lg font-mono text-red-800">9999666555</p>
+                        <p class="text-sm text-gray-600">24/7 Crisis support</p>
+                        <p class="text-xs text-red-600 mt-1">Free counseling & emotional support</p>
+                    </div>
+                    <div class="bg-white rounded-lg p-4 border-l-4 border-red-500">
+                        <h4 class="font-semibold text-red-700">iCall</h4>
+                        <p class="text-lg font-mono text-red-800">9152987821</p>
+                        <p class="text-sm text-gray-600">Mon-Sat, 8 AM-10 PM</p>
+                        <p class="text-xs text-red-600 mt-1">TISS Mumbai - Psychosocial helpline</p>
+                    </div>
+                    <div class="bg-white rounded-lg p-4 border-l-4 border-red-500">
+                        <h4 class="font-semibold text-red-700">Sneha India</h4>
+                        <p class="text-lg font-mono text-red-800">044-24640050</p>
+                        <p class="text-sm text-gray-600">24/7 Emotional support</p>
+                        <p class="text-xs text-red-600 mt-1">Chennai-based suicide prevention</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                <h3 class="font-semibold text-blue-900 mb-2">🚑 Emergency Services:</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                    <div class="bg-white rounded-lg p-3">
+                        <div class="font-semibold text-blue-800">Police</div>
+                        <div class="text-lg font-mono text-blue-900">100</div>
+                        <div class="text-xs text-blue-600">Emergency Response</div>
+                    </div>
+                    <div class="bg-white rounded-lg p-3">
+                        <div class="font-semibold text-blue-800">Fire</div>
+                        <div class="text-lg font-mono text-blue-900">101</div>
+                        <div class="text-xs text-blue-600">Fire Department</div>
+                    </div>
+                    <div class="bg-white rounded-lg p-3">
+                        <div class="font-semibold text-blue-800">Ambulance</div>
+                        <div class="text-lg font-mono text-blue-900">108</div>
+                        <div class="text-xs text-blue-600">Medical Emergency</div>
+                    </div>
+                    <div class="bg-white rounded-lg p-3">
+                        <div class="font-semibold text-blue-800">Women Helpline</div>
+                        <div class="text-lg font-mono text-blue-900">1091</div>
+                        <div class="text-xs text-blue-600">Women in Distress</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+                <h3 class="font-semibold text-green-900 mb-2">🤖 AI Crisis Detection:</h3>
+                <p class="text-sm text-green-800 mb-3">Our AI continuously monitors conversations for signs of distress and automatically provides appropriate support.</p>
+                <div class="grid md:grid-cols-3 gap-3">
+                    <div class="bg-white rounded-lg p-3 text-center">
+                        <div class="text-green-600 font-medium">Low Risk</div>
+                        <div class="text-xs text-gray-600">Gentle support & resources</div>
+                    </div>
+                    <div class="bg-white rounded-lg p-3 text-center">
+                        <div class="text-yellow-600 font-medium">Medium Risk</div>
+                        <div class="text-xs text-gray-600">Coping strategies & helplines</div>
+                    </div>
+                    <div class="bg-white rounded-lg p-3 text-center">
+                        <div class="text-red-600 font-medium">High Risk</div>
+                        <div class="text-xs text-gray-600">Immediate intervention & emergency contacts</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <p class="text-gray-600 mb-4 font-medium">Remember: You are not alone. Help is always available.</p>
+                <div class="bg-gray-100 rounded-lg p-4 mb-4">
+                    <p class="text-sm text-gray-700 italic">"If you're having thoughts of self-harm or suicide, please reach out immediately. These helplines are staffed by trained professionals who care about your wellbeing."</p>
+                </div>
+                <button onclick="closeModal('emergency-support-modal')" class="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition-colors focus-visible:focus">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Feature navigation
+        function openFeature(feature) {
+            const modalId = feature + '-modal';
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+
+                // Add entrance animation
+                const modalContent = modal.querySelector('.modal-content');
+                modalContent.style.transform = 'scale(0.9)';
+                modalContent.style.opacity = '0';
+
+                setTimeout(() => {
+                    modalContent.style.transition = 'all 0.3s ease';
+                    modalContent.style.transform = 'scale(1)';
+                    modalContent.style.opacity = '1';
+                }, 10);
+
+                // Track feature interaction
+                console.log(`Feature opened: ${feature}`);
+
+                // Send analytics event (if analytics is set up)
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'feature_demo_opened', {
+                        'feature_name': feature,
+                        'event_category': 'engagement'
+                    });
+                }
+            }
+        }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                const modalContent = modal.querySelector('.modal-content');
+                modalContent.style.transition = 'all 0.3s ease';
+                modalContent.style.transform = 'scale(0.9)';
+                modalContent.style.opacity = '0';
+
+                setTimeout(() => {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }, 300);
+            }
+        }
+
+        function selectLanguage(language) {
+            const languageNames = {
+                'hindi': 'Hindi (हिन्दी)',
+                'bengali': 'Bengali (বাংলা)',
+                'telugu': 'Telugu (తెలుగు)',
+                'tamil': 'Tamil (தமிழ்)',
+                'marathi': 'Marathi (मराठी)',
+                'gujarati': 'Gujarati (ગુજરાતી)'
+            };
+
+            const responses = {
+                'hindi': 'नमस्ते! मैं आपका AI साथी हूं। आज आप कैसा महसूस कर रहे हैं?',
+                'bengali': 'নমস্কার! আমি আপনার AI সঙ্গী। আজ আপনি কেমন অনুভব করছেন?',
+                'telugu': 'నమస్కారం! నేను మీ AI సహచరుడిని। ఈరోజు మీరు ఎలా అనుభవిస్తున్నారు?',
+                'tamil': 'வணக்கம்! நான் உங்கள் AI துணை. இன்று நீங்கள் எப்படி உணர்கிறீர்கள்?',
+                'marathi': 'नमस्कार! मी तुमचा AI साथी आहे। आज तुम्हाला कसे वाटते?',
+                'gujarati': 'નમસ્તે! હું તમારો AI સાથી છું. આજે તમે કેવું અનુભવો છો?'
+            };
+
+            const selectedLang = languageNames[language] || language;
+            const response = responses[language] || 'Hello! I am your AI companion. How are you feeling today?';
+
+            // Create a more interactive demo
+            const demoContent = `
+                <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-6 mt-4">
+                    <h4 class="font-semibold text-gray-900 mb-3">🎯 Language Selected: ${selectedLang}</h4>
+                    <div class="bg-white rounded-lg p-4 border-l-4 border-blue-500 mb-4">
+                        <div class="text-sm text-gray-600 mb-1">AI Companion:</div>
+                        <div class="text-gray-800 font-medium">${response}</div>
+                    </div>
+                    <div class="text-sm text-gray-600">
+                        <p class="mb-2">✨ <strong>In the full version, you would experience:</strong></p>
+                        <ul class="space-y-1 text-xs">
+                            <li>• Real-time conversation in ${selectedLang}</li>
+                            <li>• Cultural context and appropriate responses</li>
+                            <li>• Voice recognition and synthesis</li>
+                            <li>• Emotion detection from your text and voice</li>
+                            <li>• Personalized therapy sessions</li>
+                        </ul>
+                    </div>
+                </div>
+            `;
+
+            // Show demo content
+            const existingDemo = document.querySelector('.language-demo');
+            if (existingDemo) {
+                existingDemo.remove();
+            }
+
+            const languageGrid = document.querySelector('.language-grid');
+            const demoDiv = document.createElement('div');
+            demoDiv.className = 'language-demo';
+            demoDiv.innerHTML = demoContent;
+            languageGrid.parentNode.insertBefore(demoDiv, languageGrid.nextSibling);
+
+            // Highlight selected language card
+            document.querySelectorAll('.language-card').forEach(card => {
+                card.style.borderColor = '#e5e7eb';
+                card.style.background = 'white';
+            });
+
+            event.target.closest('.language-card').style.borderColor = '#3b82f6';
+            event.target.closest('.language-card').style.background = '#eff6ff';
+
+            // Track language selection
+            console.log(`Language selected: ${language}`);
+
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'language_selected', {
+                    'language': language,
+                    'event_category': 'localization'
+                });
+            }
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal')) {
+                const modalId = e.target.id;
+                closeModal(modalId);
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const activeModal = document.querySelector('.modal.active');
+                if (activeModal) {
+                    closeModal(activeModal.id);
+                }
+            }
+        });
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('MindfulConnect Demo Loaded');
+
+            // Add click tracking for analytics
+            document.querySelectorAll('.card-hover').forEach(card => {
+                card.addEventListener('click', function() {
+                    const featureName = this.querySelector('h3').textContent;
+                    console.log('Feature card clicked:', featureName);
+                });
+            });
+
+            // Performance monitoring
+            if ('performance' in window) {
+                window.addEventListener('load', function() {
+                    setTimeout(function() {
+                        const perfData = performance.getEntriesByType('navigation')[0];
+                        const loadTime = perfData.loadEventEnd - perfData.loadEventStart;
+                        console.log('Page load time:', loadTime + 'ms');
+
+                        if (typeof gtag !== 'undefined') {
+                            gtag('event', 'page_load_time', {
+                                'value': Math.round(loadTime),
+                                'event_category': 'performance'
+                            });
+                        }
+                    }, 0);
+                });
+            }
+
+            // Show welcome notification after a delay
+            setTimeout(() => {
+                if (!localStorage.getItem('demo-notification-shown')) {
+                    showWelcomeNotification();
+                    localStorage.setItem('demo-notification-shown', 'true');
+                }
+            }, 2000);
+
+            // Add smooth scrolling for any anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+
+        // Welcome notification
+        function showWelcomeNotification() {
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-4 right-4 bg-white border border-gray-200 rounded-lg shadow-lg p-4 max-w-sm z-50 transform translate-x-full transition-transform duration-300';
+            notification.innerHTML = `
+                <div class="flex items-start space-x-3">
+                    <div class="flex-shrink-0">
+                        <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                            <svg class="w-4 h-4 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="flex-1">
+                        <h4 class="text-sm font-semibold text-gray-900">Welcome to MindfulConnect! 🎉</h4>
+                        <p class="text-xs text-gray-600 mt-1">
+                            This is a demo of our AI Mental Health Platform for India. Click any feature card to explore!
+                        </p>
+                        <div class="mt-2 text-xs text-purple-600">
+                            ✨ 18+ languages • 🎥 3D video calls • 🚨 Emergency support
+                        </div>
+                    </div>
+                    <button onclick="this.parentElement.parentElement.remove()" class="flex-shrink-0 text-gray-400 hover:text-gray-600">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+            `;
+
+            document.body.appendChild(notification);
+
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+
+            // Auto-hide after 8 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(full)';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 8000);
+        }
+
+        // Add some interactive features
+        function addInteractiveFeatures() {
+            // Add hover effects to feature cards
+            document.querySelectorAll('.feature-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-8px)';
+                });
+
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Add click ripple effect
+            document.querySelectorAll('button').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+
+                    ripple.style.cssText = `
+                        position: absolute;
+                        width: ${size}px;
+                        height: ${size}px;
+                        left: ${x}px;
+                        top: ${y}px;
+                        background: rgba(255, 255, 255, 0.3);
+                        border-radius: 50%;
+                        transform: scale(0);
+                        animation: ripple 0.6s linear;
+                        pointer-events: none;
+                    `;
+
+                    this.style.position = 'relative';
+                    this.style.overflow = 'hidden';
+                    this.appendChild(ripple);
+
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+        }
+
+        // Add CSS for ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize interactive features
+        addInteractiveFeatures();
+
+        // Error handling
+        window.addEventListener('error', function(e) {
+            console.error('JavaScript error:', e.error);
+        });
+
+        // Service worker registration for PWA (if available)
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(function(registration) {
+                        console.log('ServiceWorker registration successful');
+                    })
+                    .catch(function(err) {
+                        console.log('ServiceWorker registration failed');
+                    });
+            });
+        }
+    </script>
+</body>
+</html>
