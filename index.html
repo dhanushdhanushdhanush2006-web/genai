@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MindfulConnect - AI Mental Health Platform for India 🇮🇳</title>
+
+    <!-- Three.js for 3D Virtual World -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cannon.js/0.20.0/cannon.min.js"></script>
     <meta name="description" content="AI Mental Health Platform for India with 18+ regional languages, 3D video calls, emotion detection, and multimedia generation. Built for Google Gen AI Exchange Hackathon.">
     <meta name="keywords" content="mental health, AI, India, multilingual, video calls, emotion detection, healthcare, therapy">
     <meta name="author" content="MindfulConnect Team">
@@ -242,15 +246,220 @@
             .card-hover {
                 transition: none;
             }
-            
+
             .feature-icon {
                 transition: none;
             }
-            
+
             .typing-animation {
                 animation: none;
                 border-right: none;
             }
+        }
+
+        /* Dark mode styles */
+        .dark {
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+
+        .dark .bg-gray-50 {
+            background-color: #1a1a1a;
+        }
+
+        .dark .bg-white {
+            background-color: #2d2d2d;
+            color: #ffffff;
+        }
+
+        .dark .text-gray-900 {
+            color: #ffffff;
+        }
+
+        .dark .text-gray-600 {
+            color: #cccccc;
+        }
+
+        .dark .border-gray-100 {
+            border-color: #404040;
+        }
+
+        .dark .feature-card {
+            background: linear-gradient(145deg, #2d2d2d 0%, #1a1a1a 100%);
+            border-color: #404040;
+        }
+
+        .dark .feature-card:hover {
+            background: linear-gradient(145deg, #404040 0%, #2d2d2d 100%);
+            border-color: #666666;
+        }
+
+        /* 3D Canvas styles */
+        .canvas-container {
+            width: 100%;
+            height: 400px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        /* Chat interface styles */
+        .chat-container {
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .dark .chat-container {
+            background: #2d2d2d;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .message {
+            max-width: 80%;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            word-wrap: break-word;
+        }
+
+        .message.user {
+            align-self: flex-end;
+            background: #3b82f6;
+            color: white;
+        }
+
+        .message.ai {
+            align-self: flex-start;
+            background: #f3f4f6;
+            color: #1f2937;
+        }
+
+        .dark .message.ai {
+            background: #404040;
+            color: #ffffff;
+        }
+
+        .chat-input {
+            padding: 1rem;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .dark .chat-input {
+            border-top-color: #404040;
+        }
+
+        /* Emotion detector styles */
+        .emotion-detector {
+            position: relative;
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .dark .emotion-detector {
+            background: #374151;
+        }
+
+        .emotion-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .emotion-happy {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .emotion-sad {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .emotion-anxious {
+            background: #fef2f2;
+            color: #991b1b;
+        }
+
+        .emotion-neutral {
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        /* Virtual world styles */
+        .virtual-world {
+            position: relative;
+            height: 600px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .avatar-controls {
+            position: absolute;
+            bottom: 1rem;
+            left: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            padding: 1rem;
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .dark .avatar-controls {
+            background: rgba(45, 45, 45, 0.9);
+        }
+
+        /* Creation tools styles */
+        .creation-tools {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .creation-panel {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid #e5e7eb;
+        }
+
+        .dark .creation-panel {
+            background: #2d2d2d;
+            border-color: #404040;
+        }
+
+        .generated-content {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .dark .generated-content {
+            background: #374151;
         }
     </style>
 </head>
@@ -305,8 +514,14 @@
                 Your emotional companion powered by AI
             </p>
             
-            <div class="bg-yellow-100 border border-yellow-300 rounded-lg px-4 py-2 mb-8 inline-block">
-                <span class="text-yellow-800 text-sm font-medium">🎯 Demo Mode - Click any feature below to try it!</span>
+            <!-- Theme Toggle -->
+            <div class="flex items-center justify-center space-x-4 mb-6">
+                <button onclick="toggleTheme()" class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+                    <span id="theme-icon">🌙</span> <span id="theme-text">Dark Mode</span>
+                </button>
+                <button onclick="toggleBackground()" class="bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+                    <span id="bg-icon">🖼️</span> <span id="bg-text">Change Background</span>
+                </button>
             </div>
             
             <button onclick="openFeature('ai-companion')" class="bg-purple-500 hover:bg-purple-600 text-white px-8 py-3 rounded-full font-semibold text-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105 focus-visible:focus glow-effect">
@@ -414,14 +629,73 @@
     <!-- Modals -->
     <!-- AI Companion Modal -->
     <div id="ai-companion-modal" class="modal">
-        <div class="modal-content w-full max-w-4xl">
+        <div class="modal-content w-full max-w-6xl">
             <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold text-gray-900">🤖 AI Companion - Demo</h2>
-                <button onclick="closeModal('ai-companion-modal')" class="text-gray-500 hover:text-gray-700 focus-visible:focus">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">🤖 AI Companion</h2>
+                <button onclick="closeModal('ai-companion-modal')" class="text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100 focus-visible:focus">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                 </button>
+            </div>
+
+            <!-- Emotion Detector -->
+            <div class="emotion-detector mb-6">
+                <h3 class="font-semibold mb-3 dark:text-white">🎭 Real-time Emotion Detection</h3>
+                <div class="flex items-center gap-4 mb-3">
+                    <button onclick="startCamera()" id="camera-btn" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                        📹 Start Camera
+                    </button>
+                    <button onclick="startVoiceDetection()" id="voice-btn" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors">
+                        🎤 Voice Detection
+                    </button>
+                    <div id="emotion-display" class="emotion-indicator emotion-neutral">
+                        😐 Neutral
+                    </div>
+                </div>
+                <video id="camera-feed" width="200" height="150" style="display: none; border-radius: 8px;"></video>
+            </div>
+
+            <!-- Main Chat Interface -->
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <!-- 3D Avatar Section -->
+                <div class="space-y-4">
+                    <h3 class="font-semibold dark:text-white">🎭 3D AI Avatar</h3>
+                    <div id="avatar-canvas" class="canvas-container">
+                        <div class="flex items-center justify-center h-full text-white">
+                            <div class="text-center">
+                                <div class="text-6xl mb-4 animate-bounce">🤖</div>
+                                <div class="text-lg font-medium">AI Avatar Active</div>
+                                <div class="text-sm opacity-75">Speaking in <span id="current-language">English</span></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex gap-2 flex-wrap">
+                        <button onclick="changeAvatarEmotion('happy')" class="bg-yellow-500 text-white px-3 py-1 rounded text-sm hover:bg-yellow-600">😊 Happy</button>
+                        <button onclick="changeAvatarEmotion('sad')" class="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600">😢 Sad</button>
+                        <button onclick="changeAvatarEmotion('thinking')" class="bg-purple-500 text-white px-3 py-1 rounded text-sm hover:bg-purple-600">🤔 Thinking</button>
+                        <button onclick="changeAvatarEmotion('excited')" class="bg-red-500 text-white px-3 py-1 rounded text-sm hover:bg-red-600">🤩 Excited</button>
+                    </div>
+                </div>
+
+                <!-- Chat Section -->
+                <div class="space-y-4">
+                    <h3 class="font-semibold dark:text-white">💬 Conversation</h3>
+                    <div class="chat-container">
+                        <div id="chat-messages" class="chat-messages">
+                            <div class="message ai">
+                                <div class="text-sm text-gray-500 mb-1">AI Companion</div>
+                                <div>Hello! I'm your AI companion. Please select your preferred language to start our conversation.</div>
+                            </div>
+                        </div>
+                        <div class="chat-input">
+                            <input type="text" id="message-input" placeholder="Type your message..." class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
+                            <button onclick="sendMessage()" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                                Send
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
@@ -522,14 +796,167 @@
 
     <!-- Virtual Community Modal -->
     <div id="virtual-community-modal" class="modal">
-        <div class="modal-content w-full max-w-4xl">
+        <div class="modal-content w-full max-w-6xl">
             <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold text-gray-900">🌍 Virtual Community - Demo</h2>
-                <button onclick="closeModal('virtual-community-modal')" class="text-gray-500 hover:text-gray-700 focus-visible:focus">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">🌍 Virtual Community</h2>
+                <button onclick="closeModal('virtual-community-modal')" class="text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100 focus-visible:focus">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                 </button>
+            </div>
+
+            <!-- Immersive 3D Virtual World -->
+            <div class="mb-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold dark:text-white">🌍 Enter Virtual World</h3>
+                    <div class="flex gap-2">
+                        <button onclick="enterFullscreen()" class="bg-purple-500 text-white px-3 py-1 rounded text-sm hover:bg-purple-600">🔍 Fullscreen</button>
+                        <button onclick="toggleVR()" class="bg-blue-500 text-white px-3 py-1 rounded text-sm hover:bg-blue-600">🥽 VR Mode</button>
+                    </div>
+                </div>
+
+                <!-- 3D Canvas Container -->
+                <div id="virtual-world-container" class="relative w-full h-96 rounded-lg overflow-hidden border-2 border-gray-300 dark:border-gray-600">
+                    <canvas id="virtual-world-canvas" class="w-full h-full"></canvas>
+
+                    <!-- Loading Screen -->
+                    <div id="world-loading" class="absolute inset-0 bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center">
+                        <div class="text-center text-white">
+                            <div class="animate-spin text-4xl mb-4">🌍</div>
+                            <div class="text-lg font-bold">Loading Virtual World...</div>
+                            <div class="text-sm opacity-75">Preparing your immersive experience</div>
+                        </div>
+                    </div>
+
+                    <!-- World UI Overlay -->
+                    <div id="world-ui" class="absolute inset-0 pointer-events-none" style="display: none;">
+                        <!-- Top HUD -->
+                        <div class="absolute top-4 left-4 right-4 flex justify-between pointer-events-auto">
+                            <div class="bg-black bg-opacity-50 text-white px-3 py-2 rounded-lg">
+                                <div class="text-sm">Current Location</div>
+                                <div id="current-location" class="font-bold">🌸 Meditation Garden</div>
+                            </div>
+                            <div class="bg-black bg-opacity-50 text-white px-3 py-2 rounded-lg">
+                                <div class="text-sm">Online Users</div>
+                                <div id="online-count" class="font-bold">12 Active</div>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Controls -->
+                        <div class="absolute bottom-4 left-4 right-4 pointer-events-auto">
+                            <div class="bg-black bg-opacity-70 rounded-lg p-4">
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                                    <!-- Movement Controls -->
+                                    <div class="text-center">
+                                        <div class="text-white text-xs mb-2">Movement</div>
+                                        <div class="grid grid-cols-3 gap-1">
+                                            <div></div>
+                                            <button onclick="moveAvatar('forward')" class="bg-blue-500 text-white p-2 rounded text-xs hover:bg-blue-600">↑</button>
+                                            <div></div>
+                                            <button onclick="moveAvatar('left')" class="bg-blue-500 text-white p-2 rounded text-xs hover:bg-blue-600">←</button>
+                                            <button onclick="moveAvatar('stop')" class="bg-red-500 text-white p-2 rounded text-xs hover:bg-red-600">⏹</button>
+                                            <button onclick="moveAvatar('right')" class="bg-blue-500 text-white p-2 rounded text-xs hover:bg-blue-600">→</button>
+                                            <div></div>
+                                            <button onclick="moveAvatar('backward')" class="bg-blue-500 text-white p-2 rounded text-xs hover:bg-blue-600">↓</button>
+                                            <div></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Avatar Actions -->
+                                    <div class="text-center">
+                                        <div class="text-white text-xs mb-2">Actions</div>
+                                        <div class="space-y-1">
+                                            <button onclick="avatarAction('wave')" class="w-full bg-green-500 text-white py-1 px-2 rounded text-xs hover:bg-green-600">👋 Wave</button>
+                                            <button onclick="avatarAction('meditate')" class="w-full bg-purple-500 text-white py-1 px-2 rounded text-xs hover:bg-purple-600">🧘 Meditate</button>
+                                            <button onclick="avatarAction('dance')" class="w-full bg-yellow-500 text-white py-1 px-2 rounded text-xs hover:bg-yellow-600">💃 Dance</button>
+                                        </div>
+                                    </div>
+
+                                    <!-- World Locations -->
+                                    <div class="text-center">
+                                        <div class="text-white text-xs mb-2">Teleport</div>
+                                        <div class="space-y-1">
+                                            <button onclick="teleportTo('garden')" class="w-full bg-green-600 text-white py-1 px-2 rounded text-xs hover:bg-green-700">🌸 Garden</button>
+                                            <button onclick="teleportTo('temple')" class="w-full bg-orange-600 text-white py-1 px-2 rounded text-xs hover:bg-orange-700">🏛️ Temple</button>
+                                            <button onclick="teleportTo('beach')" class="w-full bg-blue-600 text-white py-1 px-2 rounded text-xs hover:bg-blue-700">🏖️ Beach</button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Social Features -->
+                                    <div class="text-center">
+                                        <div class="text-white text-xs mb-2">Social</div>
+                                        <div class="space-y-1">
+                                            <button onclick="openChat()" class="w-full bg-indigo-500 text-white py-1 px-2 rounded text-xs hover:bg-indigo-600">💬 Chat</button>
+                                            <button onclick="findFriends()" class="w-full bg-pink-500 text-white py-1 px-2 rounded text-xs hover:bg-pink-600">👥 Find</button>
+                                            <button onclick="joinActivity()" class="w-full bg-teal-500 text-white py-1 px-2 rounded text-xs hover:bg-teal-600">🎯 Join</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- World Status -->
+                <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-white dark:bg-gray-800 rounded-lg p-3 border border-gray-200 dark:border-gray-700">
+                        <div class="text-sm font-medium text-gray-600 dark:text-gray-300">Your Avatar</div>
+                        <div id="avatar-status" class="text-lg font-bold text-gray-900 dark:text-white">Ready to Enter</div>
+                    </div>
+                    <div class="bg-white dark:bg-gray-800 rounded-lg p-3 border border-gray-200 dark:border-gray-700">
+                        <div class="text-sm font-medium text-gray-600 dark:text-gray-300">Current Activity</div>
+                        <div id="activity-status" class="text-lg font-bold text-gray-900 dark:text-white">Exploring</div>
+                    </div>
+                    <div class="bg-white dark:bg-gray-800 rounded-lg p-3 border border-gray-200 dark:border-gray-700">
+                        <div class="text-sm font-medium text-gray-600 dark:text-gray-300">Wellness Points</div>
+                        <div id="wellness-points" class="text-lg font-bold text-green-600">+150 XP</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Community Features -->
+            <div class="grid md:grid-cols-3 gap-4 mb-6">
+                <div class="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+                    <h4 class="font-semibold mb-2 dark:text-white">🏛️ Virtual Spaces</h4>
+                    <div class="space-y-2 text-sm">
+                        <button onclick="changeVirtualSpace('garden')" class="block w-full text-left p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-300">🌸 Meditation Garden</button>
+                        <button onclick="changeVirtualSpace('temple')" class="block w-full text-left p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-300">🏛️ Peace Temple</button>
+                        <button onclick="changeVirtualSpace('beach')" class="block w-full text-left p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-300">🏖️ Calm Beach</button>
+                        <button onclick="changeVirtualSpace('forest')" class="block w-full text-left p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-300">🌲 Healing Forest</button>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+                    <h4 class="font-semibold mb-2 dark:text-white">👥 Active Users</h4>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex items-center gap-2 p-2 rounded bg-gray-50 dark:bg-gray-700">
+                            <div class="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs">A</div>
+                            <span class="dark:text-gray-300">Ananya (Hindi)</span>
+                            <span class="text-green-500 text-xs">🧘 Meditating</span>
+                        </div>
+                        <div class="flex items-center gap-2 p-2 rounded bg-gray-50 dark:bg-gray-700">
+                            <div class="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-xs">R</div>
+                            <span class="dark:text-gray-300">Raj (Tamil)</span>
+                            <span class="text-blue-500 text-xs">💬 Chatting</span>
+                        </div>
+                        <div class="flex items-center gap-2 p-2 rounded bg-gray-50 dark:bg-gray-700">
+                            <div class="w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center text-white text-xs">P</div>
+                            <span class="dark:text-gray-300">Priya (Bengali)</span>
+                            <span class="text-yellow-500 text-xs">🎨 Creating</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+                    <h4 class="font-semibold mb-2 dark:text-white">🎯 Activities</h4>
+                    <div class="space-y-2 text-sm">
+                        <button onclick="joinActivity('meditation')" class="block w-full text-left p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-300">🧘 Group Meditation</button>
+                        <button onclick="joinActivity('support')" class="block w-full text-left p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-300">🤝 Support Circle</button>
+                        <button onclick="joinActivity('art')" class="block w-full text-left p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-300">🎨 Art Therapy</button>
+                        <button onclick="joinActivity('music')" class="block w-full text-left p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-300">🎵 Music Healing</button>
+                    </div>
+                </div>
             </div>
 
             <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-6 mb-6">
@@ -596,14 +1023,150 @@
 
     <!-- Mood Creation Modal -->
     <div id="mood-creation-modal" class="modal">
-        <div class="modal-content w-full max-w-4xl">
+        <div class="modal-content w-full max-w-6xl">
             <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold text-gray-900">🎨 Mood-Based Creation - Demo</h2>
-                <button onclick="closeModal('mood-creation-modal')" class="text-gray-500 hover:text-gray-700 focus-visible:focus">
+                <h2 class="text-2xl font-bold text-gray-900 dark:text-white">🎨 Creative Wellness Studio</h2>
+                <button onclick="closeModal('mood-creation-modal')" class="text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100 focus-visible:focus">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                 </button>
+            </div>
+
+            <!-- Current Mood Detector -->
+            <div class="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900 dark:to-pink-900 rounded-lg p-4 mb-6">
+                <h3 class="font-semibold mb-3 dark:text-white">🎭 Current Mood Analysis</h3>
+                <div class="flex items-center gap-4">
+                    <div id="detected-mood" class="emotion-indicator emotion-neutral">
+                        😐 Analyzing...
+                    </div>
+                    <button onclick="analyzeMood()" class="bg-purple-500 text-white px-4 py-2 rounded-lg hover:bg-purple-600 transition-colors">
+                        🔍 Analyze My Mood
+                    </button>
+                    <div class="text-sm text-gray-600 dark:text-gray-300">
+                        Based on your recent interactions and expressions
+                    </div>
+                </div>
+            </div>
+
+            <!-- Creation Tools -->
+            <div class="creation-tools">
+                <!-- AI Art Generator -->
+                <div class="creation-panel">
+                    <h3 class="font-semibold mb-3 dark:text-white">🎨 AI Art Generator</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-sm font-medium mb-1 dark:text-gray-300">Art Style</label>
+                            <select id="art-style" class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white">
+                                <option value="mandala">Mandala (Healing Patterns)</option>
+                                <option value="nature">Nature Scenes</option>
+                                <option value="abstract">Abstract Expression</option>
+                                <option value="indian">Indian Traditional Art</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1 dark:text-gray-300">Color Mood</label>
+                            <div class="flex gap-2">
+                                <button onclick="setColorMood('calm')" class="bg-blue-200 hover:bg-blue-300 px-3 py-1 rounded text-sm">🔵 Calm</button>
+                                <button onclick="setColorMood('energetic')" class="bg-red-200 hover:bg-red-300 px-3 py-1 rounded text-sm">🔴 Energetic</button>
+                                <button onclick="setColorMood('peaceful')" class="bg-green-200 hover:bg-green-300 px-3 py-1 rounded text-sm">🟢 Peaceful</button>
+                                <button onclick="setColorMood('warm')" class="bg-yellow-200 hover:bg-yellow-300 px-3 py-1 rounded text-sm">🟡 Warm</button>
+                            </div>
+                        </div>
+                        <button onclick="generateArt()" class="w-full bg-pink-500 text-white py-2 rounded-lg hover:bg-pink-600 transition-colors">
+                            🎨 Generate Art
+                        </button>
+                        <div id="generated-art" class="generated-content" style="display: none;">
+                            <div class="text-center">
+                                <div class="w-full h-48 bg-gradient-to-br from-purple-400 via-pink-500 to-red-500 rounded-lg mb-3 flex items-center justify-center text-white text-lg font-bold">
+                                    🎨 Generated Artwork
+                                </div>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">Beautiful mandala art generated based on your peaceful mood</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Music Composer -->
+                <div class="creation-panel">
+                    <h3 class="font-semibold mb-3 dark:text-white">🎵 AI Music Composer</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-sm font-medium mb-1 dark:text-gray-300">Music Style</label>
+                            <select id="music-style" class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white">
+                                <option value="classical">Indian Classical (Ragas)</option>
+                                <option value="ambient">Ambient Healing</option>
+                                <option value="nature">Nature Sounds</option>
+                                <option value="meditation">Meditation Music</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1 dark:text-gray-300">Instruments</label>
+                            <div class="flex gap-2 flex-wrap">
+                                <button onclick="toggleInstrument('sitar')" class="bg-orange-200 hover:bg-orange-300 px-3 py-1 rounded text-sm">🎸 Sitar</button>
+                                <button onclick="toggleInstrument('tabla')" class="bg-brown-200 hover:bg-brown-300 px-3 py-1 rounded text-sm">🥁 Tabla</button>
+                                <button onclick="toggleInstrument('flute')" class="bg-blue-200 hover:bg-blue-300 px-3 py-1 rounded text-sm">🎵 Flute</button>
+                                <button onclick="toggleInstrument('veena')" class="bg-purple-200 hover:bg-purple-300 px-3 py-1 rounded text-sm">🎻 Veena</button>
+                            </div>
+                        </div>
+                        <button onclick="generateMusic()" class="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition-colors">
+                            🎵 Compose Music
+                        </button>
+                        <div id="generated-music" class="generated-content" style="display: none;">
+                            <div class="text-center">
+                                <div class="bg-gradient-to-r from-green-400 to-blue-500 rounded-lg p-4 mb-3 text-white">
+                                    <div class="text-2xl mb-2">🎵</div>
+                                    <div class="font-bold">Peaceful Raga Composition</div>
+                                    <div class="text-sm opacity-75">3:45 minutes • Sitar & Tabla</div>
+                                </div>
+                                <div class="flex justify-center gap-2">
+                                    <button onclick="playMusic()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">▶️ Play</button>
+                                    <button onclick="downloadMusic()" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">💾 Download</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Story Generator -->
+                <div class="creation-panel">
+                    <h3 class="font-semibold mb-3 dark:text-white">📖 AI Story Generator</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-sm font-medium mb-1 dark:text-gray-300">Story Type</label>
+                            <select id="story-type" class="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-gray-700 dark:text-white">
+                                <option value="motivational">Motivational Story</option>
+                                <option value="peaceful">Peaceful Journey</option>
+                                <option value="wisdom">Ancient Wisdom</option>
+                                <option value="healing">Healing Tale</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-1 dark:text-gray-300">Cultural Setting</label>
+                            <div class="flex gap-2 flex-wrap">
+                                <button onclick="setCulture('indian')" class="bg-orange-200 hover:bg-orange-300 px-3 py-1 rounded text-sm">🇮🇳 Indian</button>
+                                <button onclick="setCulture('himalayan')" class="bg-blue-200 hover:bg-blue-300 px-3 py-1 rounded text-sm">🏔️ Himalayan</button>
+                                <button onclick="setCulture('coastal')" class="bg-teal-200 hover:bg-teal-300 px-3 py-1 rounded text-sm">🏖️ Coastal</button>
+                                <button onclick="setCulture('forest')" class="bg-green-200 hover:bg-green-300 px-3 py-1 rounded text-sm">🌲 Forest</button>
+                            </div>
+                        </div>
+                        <button onclick="generateStory()" class="w-full bg-indigo-500 text-white py-2 rounded-lg hover:bg-indigo-600 transition-colors">
+                            📖 Create Story
+                        </button>
+                        <div id="generated-story" class="generated-content" style="display: none;">
+                            <div class="text-left">
+                                <h4 class="font-bold mb-2 dark:text-white">The Peaceful Garden</h4>
+                                <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                                    In a small village nestled in the Western Ghats, there lived a young woman named Meera who discovered that the secret to inner peace lay not in avoiding life's storms, but in learning to dance in the rain. Every morning, she would tend to her grandmother's garden, where each flower taught her a lesson about resilience, growth, and the beauty of impermanence...
+                                </p>
+                                <div class="mt-3 flex gap-2">
+                                    <button onclick="readStory()" class="bg-indigo-500 text-white px-4 py-2 rounded hover:bg-indigo-600">🔊 Read Aloud</button>
+                                    <button onclick="continueStory()" class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600">➡️ Continue</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="grid md:grid-cols-3 gap-6 mb-6">
@@ -709,14 +1272,178 @@
 
     <!-- Emergency Support Modal -->
     <div id="emergency-support-modal" class="modal">
-        <div class="modal-content w-full max-w-4xl">
+        <div class="modal-content w-full max-w-6xl">
             <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold text-gray-900">🚨 Emergency Support - Demo</h2>
-                <button onclick="closeModal('emergency-support-modal')" class="text-gray-500 hover:text-gray-700 focus-visible:focus">
+                <h2 class="text-2xl font-bold text-red-600 dark:text-red-400">🚨 Emergency Support</h2>
+                <button onclick="closeModal('emergency-support-modal')" class="text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100 focus-visible:focus">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                     </svg>
                 </button>
+            </div>
+
+            <!-- Crisis Detection Alert -->
+            <div id="crisis-alert" class="bg-red-100 dark:bg-red-900 border border-red-300 dark:border-red-700 rounded-lg p-4 mb-6" style="display: none;">
+                <div class="flex items-center">
+                    <div class="text-red-600 dark:text-red-400 text-2xl mr-3 animate-pulse">🚨</div>
+                    <div>
+                        <div class="font-bold text-red-800 dark:text-red-200">Crisis Detected</div>
+                        <div class="text-red-700 dark:text-red-300 text-sm">Our AI has detected signs of distress. Immediate support is available.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Immediate Help Section -->
+            <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <!-- Emergency Calling -->
+                <div class="bg-red-50 dark:bg-red-900 rounded-lg p-6 border-2 border-red-200 dark:border-red-700">
+                    <h3 class="text-xl font-bold text-red-800 dark:text-red-200 mb-4">📞 Immediate Help</h3>
+
+                    <!-- National Emergency -->
+                    <div class="space-y-3">
+                        <div class="bg-white dark:bg-red-800 rounded-lg p-4 border border-red-300 dark:border-red-600">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <div class="font-bold text-red-800 dark:text-red-200">KIRAN Mental Health Helpline</div>
+                                    <div class="text-red-600 dark:text-red-300 text-sm">24/7 Free Support • All Languages</div>
+                                    <div class="text-2xl font-bold text-red-700 dark:text-red-200 mt-1">1800-599-0019</div>
+                                </div>
+                                <button onclick="makeEmergencyCall('1800-599-0019', 'KIRAN')" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors">
+                                    📞 Call Now
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="bg-white dark:bg-red-800 rounded-lg p-4 border border-red-300 dark:border-red-600">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <div class="font-bold text-red-800 dark:text-red-200">Vandrevala Foundation</div>
+                                    <div class="text-red-600 dark:text-red-300 text-sm">24/7 Crisis Support</div>
+                                    <div class="text-2xl font-bold text-red-700 dark:text-red-200 mt-1">9999666555</div>
+                                </div>
+                                <button onclick="makeEmergencyCall('9999666555', 'Vandrevala')" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors">
+                                    📞 Call Now
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="bg-white dark:bg-red-800 rounded-lg p-4 border border-red-300 dark:border-red-600">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <div class="font-bold text-red-800 dark:text-red-200">Emergency Services</div>
+                                    <div class="text-red-600 dark:text-red-300 text-sm">Police, Ambulance, Fire</div>
+                                    <div class="text-2xl font-bold text-red-700 dark:text-red-200 mt-1">112</div>
+                                </div>
+                                <button onclick="makeEmergencyCall('112', 'Emergency')" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors">
+                                    📞 Call Now
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Crisis Support -->
+                <div class="bg-blue-50 dark:bg-blue-900 rounded-lg p-6 border-2 border-blue-200 dark:border-blue-700">
+                    <h3 class="text-xl font-bold text-blue-800 dark:text-blue-200 mb-4">🤖 AI Crisis Support</h3>
+
+                    <div class="space-y-4">
+                        <!-- Immediate AI Chat -->
+                        <div class="bg-white dark:bg-blue-800 rounded-lg p-4">
+                            <div class="font-bold text-blue-800 dark:text-blue-200 mb-2">Talk to Crisis AI Now</div>
+                            <div class="text-blue-600 dark:text-blue-300 text-sm mb-3">Immediate support while you wait for human help</div>
+                            <button onclick="startCrisisChat()" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                                💬 Start Crisis Chat
+                            </button>
+                        </div>
+
+                        <!-- Breathing Exercise -->
+                        <div class="bg-white dark:bg-blue-800 rounded-lg p-4">
+                            <div class="font-bold text-blue-800 dark:text-blue-200 mb-2">Guided Breathing</div>
+                            <div class="text-blue-600 dark:text-blue-300 text-sm mb-3">Immediate calming technique</div>
+                            <button onclick="startBreathingExercise()" class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition-colors">
+                                🫁 Start Breathing
+                            </button>
+                        </div>
+
+                        <!-- Safety Plan -->
+                        <div class="bg-white dark:bg-blue-800 rounded-lg p-4">
+                            <div class="font-bold text-blue-800 dark:text-blue-200 mb-2">Personal Safety Plan</div>
+                            <div class="text-blue-600 dark:text-blue-300 text-sm mb-3">Your personalized crisis plan</div>
+                            <button onclick="openSafetyPlan()" class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition-colors">
+                                📋 View Safety Plan
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Regional Support -->
+            <div class="mb-6">
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">🌍 Regional Support Centers</h3>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+                        <div class="font-bold text-gray-900 dark:text-white">North India</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-300 mb-2">Delhi, Punjab, Haryana, UP</div>
+                        <div class="space-y-2">
+                            <button onclick="makeEmergencyCall('011-23389090', 'Saarthak')" class="w-full text-left p-2 bg-gray-50 dark:bg-gray-700 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                                <div class="font-medium">Saarthak (Delhi)</div>
+                                <div class="text-sm text-blue-600">011-23389090</div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+                        <div class="font-bold text-gray-900 dark:text-white">South India</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-300 mb-2">Chennai, Bangalore, Hyderabad</div>
+                        <div class="space-y-2">
+                            <button onclick="makeEmergencyCall('044-24640050', 'Sneha')" class="w-full text-left p-2 bg-gray-50 dark:bg-gray-700 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                                <div class="font-medium">Sneha (Chennai)</div>
+                                <div class="text-sm text-blue-600">044-24640050</div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+                        <div class="font-bold text-gray-900 dark:text-white">West India</div>
+                        <div class="text-sm text-gray-600 dark:text-gray-300 mb-2">Mumbai, Pune, Gujarat</div>
+                        <div class="space-y-2">
+                            <button onclick="makeEmergencyCall('9152987821', 'iCall')" class="w-full text-left p-2 bg-gray-50 dark:bg-gray-700 rounded hover:bg-gray-100 dark:hover:bg-gray-600">
+                                <div class="font-medium">iCall (Mumbai)</div>
+                                <div class="text-sm text-blue-600">9152987821</div>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Crisis Chat Interface -->
+            <div id="crisis-chat-container" class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4" style="display: none;">
+                <div class="flex items-center justify-between mb-4">
+                    <h4 class="font-bold text-gray-900 dark:text-white">🤖 Crisis Support AI</h4>
+                    <button onclick="closeCrisisChat()" class="text-gray-500 hover:text-gray-700 dark:text-gray-300 dark:hover:text-gray-100">✕</button>
+                </div>
+                <div id="crisis-messages" class="h-64 overflow-y-auto mb-4 space-y-2">
+                    <!-- Crisis messages will appear here -->
+                </div>
+                <div class="flex gap-2">
+                    <input type="text" id="crisis-input" placeholder="Tell me how you're feeling..." class="flex-1 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white">
+                    <button onclick="sendCrisisMessage()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">Send</button>
+                </div>
+            </div>
+
+            <!-- Breathing Exercise Interface -->
+            <div id="breathing-exercise" class="bg-green-50 dark:bg-green-900 rounded-lg p-6 text-center" style="display: none;">
+                <h4 class="text-xl font-bold text-green-800 dark:text-green-200 mb-4">🫁 Guided Breathing Exercise</h4>
+                <div id="breathing-circle" class="w-32 h-32 mx-auto mb-4 rounded-full bg-green-200 dark:bg-green-700 flex items-center justify-center text-2xl transition-all duration-4000">
+                    🌸
+                </div>
+                <div id="breathing-instruction" class="text-lg font-medium text-green-800 dark:text-green-200 mb-4">
+                    Click Start to begin
+                </div>
+                <div class="space-x-4">
+                    <button onclick="startBreathing()" id="start-breathing" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors">Start</button>
+                    <button onclick="stopBreathing()" id="stop-breathing" class="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition-colors" style="display: none;">Stop</button>
+                </div>
             </div>
 
             <div class="bg-red-50 border border-red-200 rounded-lg p-6 mb-6">
@@ -808,6 +1535,183 @@
 
     <!-- JavaScript -->
     <script>
+        // Global variables
+        let currentLanguage = 'en';
+        let currentEmotion = 'neutral';
+        let selectedInstruments = [];
+        let selectedColorMood = 'calm';
+        let selectedCulture = 'indian';
+        let isRecording = false;
+        let mediaStream = null;
+
+        // Theme management
+        function toggleTheme() {
+            const body = document.body;
+            const isDark = body.classList.contains('dark');
+
+            if (isDark) {
+                body.classList.remove('dark');
+                document.getElementById('theme-icon').textContent = '🌙';
+                document.getElementById('theme-text').textContent = 'Dark Mode';
+                localStorage.setItem('theme', 'light');
+            } else {
+                body.classList.add('dark');
+                document.getElementById('theme-icon').textContent = '☀️';
+                document.getElementById('theme-text').textContent = 'Light Mode';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        function toggleBackground() {
+            const backgrounds = [
+                'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+                'linear-gradient(135deg, #fa709a 0%, #fee140 100%)'
+            ];
+
+            const currentBg = localStorage.getItem('background') || '0';
+            const nextBg = (parseInt(currentBg) + 1) % backgrounds.length;
+
+            document.querySelector('.gradient-bg').style.background = backgrounds[nextBg];
+            localStorage.setItem('background', nextBg.toString());
+        }
+
+        // Initialize theme
+        function initializeTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark');
+                document.getElementById('theme-icon').textContent = '☀️';
+                document.getElementById('theme-text').textContent = 'Light Mode';
+            }
+
+            const savedBg = localStorage.getItem('background');
+            if (savedBg) {
+                const backgrounds = [
+                    'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                    'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+                    'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+                    'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+                    'linear-gradient(135deg, #fa709a 0%, #fee140 100%)'
+                ];
+                const gradientBg = document.querySelector('.gradient-bg');
+                if (gradientBg) {
+                    gradientBg.style.background = backgrounds[parseInt(savedBg)];
+                }
+            }
+        }
+
+        // Emotion detection functions
+        async function startCamera() {
+            try {
+                const video = document.getElementById('camera-feed');
+                const btn = document.getElementById('camera-btn');
+
+                if (mediaStream) {
+                    // Stop camera
+                    mediaStream.getTracks().forEach(track => track.stop());
+                    mediaStream = null;
+                    video.style.display = 'none';
+                    btn.textContent = '📹 Start Camera';
+                    btn.classList.remove('bg-red-500');
+                    btn.classList.add('bg-blue-500');
+                } else {
+                    // Start camera
+                    mediaStream = await navigator.mediaDevices.getUserMedia({ video: true });
+                    video.srcObject = mediaStream;
+                    video.style.display = 'block';
+                    video.play();
+
+                    btn.textContent = '⏹️ Stop Camera';
+                    btn.classList.remove('bg-blue-500');
+                    btn.classList.add('bg-red-500');
+
+                    // Simulate emotion detection
+                    simulateEmotionDetection();
+                }
+            } catch (error) {
+                alert('Camera access denied. Please allow camera access to use emotion detection.');
+                console.error('Camera error:', error);
+            }
+        }
+
+        function simulateEmotionDetection() {
+            const emotions = ['happy', 'sad', 'neutral', 'anxious', 'excited'];
+            const emotionIcons = {
+                'happy': '😊',
+                'sad': '😢',
+                'neutral': '😐',
+                'anxious': '😰',
+                'excited': '🤩'
+            };
+
+            setInterval(() => {
+                if (mediaStream) {
+                    const randomEmotion = emotions[Math.floor(Math.random() * emotions.length)];
+                    updateEmotionDisplay(randomEmotion);
+                }
+            }, 3000);
+        }
+
+        function updateEmotionDisplay(emotion) {
+            currentEmotion = emotion;
+            const display = document.getElementById('emotion-display');
+            const emotionIcons = {
+                'happy': '😊',
+                'sad': '😢',
+                'neutral': '😐',
+                'anxious': '😰',
+                'excited': '🤩'
+            };
+
+            display.textContent = `${emotionIcons[emotion]} ${emotion.charAt(0).toUpperCase() + emotion.slice(1)}`;
+            display.className = `emotion-indicator emotion-${emotion}`;
+
+            // Update avatar emotion
+            changeAvatarEmotion(emotion);
+        }
+
+        async function startVoiceDetection() {
+            const btn = document.getElementById('voice-btn');
+
+            if (isRecording) {
+                // Stop recording
+                isRecording = false;
+                btn.textContent = '🎤 Voice Detection';
+                btn.classList.remove('bg-red-500');
+                btn.classList.add('bg-green-500');
+            } else {
+                // Start recording
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    isRecording = true;
+                    btn.textContent = '⏹️ Stop Recording';
+                    btn.classList.remove('bg-green-500');
+                    btn.classList.add('bg-red-500');
+
+                    // Simulate voice emotion detection
+                    setTimeout(() => {
+                        const emotions = ['happy', 'sad', 'anxious', 'excited'];
+                        const randomEmotion = emotions[Math.floor(Math.random() * emotions.length)];
+                        updateEmotionDisplay(randomEmotion);
+
+                        if (isRecording) {
+                            isRecording = false;
+                            btn.textContent = '🎤 Voice Detection';
+                            btn.classList.remove('bg-red-500');
+                            btn.classList.add('bg-green-500');
+                        }
+                    }, 3000);
+
+                } catch (error) {
+                    alert('Microphone access denied. Please allow microphone access for voice emotion detection.');
+                    console.error('Microphone error:', error);
+                }
+            }
+        }
+
         // Feature navigation
         function openFeature(feature) {
             const modalId = feature + '-modal';
@@ -855,7 +1759,120 @@
             }
         }
 
+        // AI Chat Functions
+        function sendMessage() {
+            const input = document.getElementById('message-input');
+            const message = input.value.trim();
+
+            if (!message) return;
+
+            // Add user message
+            addMessage('user', message);
+            input.value = '';
+
+            // Analyze emotion from text
+            analyzeTextEmotion(message);
+
+            // Generate AI response
+            setTimeout(() => {
+                const aiResponse = generateAIResponse(message, currentEmotion, currentLanguage);
+                addMessage('ai', aiResponse);
+
+                // Update avatar speaking animation
+                speakAvatar(aiResponse);
+            }, 1000);
+        }
+
+        function addMessage(type, content) {
+            const messagesContainer = document.getElementById('chat-messages');
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+
+            const timestamp = new Date().toLocaleTimeString();
+            messageDiv.innerHTML = `
+                <div class="text-xs opacity-75 mb-1">${type === 'user' ? 'You' : 'AI Companion'} • ${timestamp}</div>
+                <div>${content}</div>
+            `;
+
+            messagesContainer.appendChild(messageDiv);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function analyzeTextEmotion(text) {
+            const emotionKeywords = {
+                happy: ['happy', 'joy', 'excited', 'good', 'great', 'wonderful', 'खुश', 'আনন্দ', 'खुशी'],
+                sad: ['sad', 'depressed', 'down', 'upset', 'cry', 'दुखी', 'কষ্ট', 'उदास'],
+                anxious: ['anxious', 'worried', 'nervous', 'scared', 'tension', 'चिंता', 'উদ্বেগ', 'परेशान'],
+                angry: ['angry', 'mad', 'frustrated', 'annoyed', 'गुस्सा', 'রাগ', 'क्रोध']
+            };
+
+            const lowerText = text.toLowerCase();
+            let detectedEmotion = 'neutral';
+            let maxMatches = 0;
+
+            for (const [emotion, keywords] of Object.entries(emotionKeywords)) {
+                const matches = keywords.filter(keyword => lowerText.includes(keyword)).length;
+                if (matches > maxMatches) {
+                    maxMatches = matches;
+                    detectedEmotion = emotion;
+                }
+            }
+
+            if (maxMatches > 0) {
+                updateEmotionDisplay(detectedEmotion);
+            }
+        }
+
+        function generateAIResponse(message, emotion, language) {
+            const responses = {
+                'en': {
+                    'happy': [
+                        "I'm so glad to hear you're feeling positive! Your happiness is wonderful to see. What's bringing you joy today?",
+                        "That's fantastic! It's beautiful when we can appreciate the good moments. Would you like to share what's making you feel this way?",
+                        "Your positive energy is contagious! How can we build on this wonderful feeling?"
+                    ],
+                    'sad': [
+                        "I can sense that you're going through a difficult time. It's okay to feel sad - these emotions are valid. I'm here to listen and support you.",
+                        "Thank you for sharing your feelings with me. Sadness can be overwhelming, but you don't have to face it alone. What's been weighing on your heart?",
+                        "I hear the pain in your words. It takes courage to express these feelings. How can I help you through this moment?"
+                    ],
+                    'anxious': [
+                        "I understand that you're feeling anxious. Anxiety can be really challenging. Let's take this one step at a time. What's causing you the most worry right now?",
+                        "Feeling anxious is more common than you might think. You're not alone in this. Would some breathing exercises help, or would you prefer to talk about what's troubling you?",
+                        "I can sense your anxiety, and I want you to know that it's okay to feel this way. Let's work together to find some calm. What usually helps you feel more grounded?"
+                    ],
+                    'neutral': [
+                        "Thank you for sharing with me. I'm here to listen and support you in whatever way you need. What's on your mind today?",
+                        "I appreciate you taking the time to connect. How are you feeling right now, and what would be most helpful for our conversation?",
+                        "I'm glad you're here. Whether you want to talk about something specific or just need someone to listen, I'm here for you."
+                    ]
+                },
+                'hi': {
+                    'happy': [
+                        "मुझे खुशी है कि आप अच्छा महसूस कर रहे हैं! आपकी खुशी देखकर मन प्रसन्न हो जाता है। आज क्या बात है जो आपको इतना खुश कर रही है?",
+                        "यह बहुत अच्छी बात है! जब हम अच्छे पलों की सराहना कर सकते हैं तो यह बहुत सुंदर होता है। क्या आप बताना चाहेंगे कि आपको क्या इतना अच्छा लगा रहा है?"
+                    ],
+                    'sad': [
+                        "मैं समझ सकता हूं कि आप एक कठिन समय से गुजर रहे हैं। उदास होना ठीक है - ये भावनाएं सामान्य हैं। मैं यहां आपकी बात सुनने और आपका साथ देने के लिए हूं।",
+                        "अपनी भावनाओं को साझा करने के लिए धन्यवाद। उदासी कभी-कभी बहुत भारी लग सकती है, लेकिन आपको इसका सामना अकेले नहीं करना है। आपके मन में क्या बात है?"
+                    ],
+                    'anxious': [
+                        "मैं समझ सकता हूं कि आप चिंतित महसूस कर रहे हैं। चिंता वास्तव में चुनौतीपूर्ण हो सकती है। आइए इसे एक-एक कदम करके लेते हैं। अभी आपको सबसे ज्यादा किस बात की चिंता है?",
+                        "चिंतित महसूस करना आपके विचार से कहीं अधिक सामान्य है। इसमें आप अकेले नहीं हैं। क्या कुछ सांस की एक्सरसाइज मदद करेगी, या आप उस बारे में बात करना पसंद करेंगे जो आपको परेशान कर रहा है?"
+                    ]
+                }
+            };
+
+            const langResponses = responses[language] || responses['en'];
+            const emotionResponses = langResponses[emotion] || langResponses['neutral'];
+            const randomResponse = emotionResponses[Math.floor(Math.random() * emotionResponses.length)];
+
+            return randomResponse;
+        }
+
         function selectLanguage(language) {
+            currentLanguage = language;
+
             const languageNames = {
                 'hindi': 'Hindi (हिन्दी)',
                 'bengali': 'Bengali (বাংলা)',
@@ -865,7 +1882,16 @@
                 'gujarati': 'Gujarati (ગુજરાતી)'
             };
 
-            const responses = {
+            const selectedLang = languageNames[language] || language;
+
+            // Update current language display
+            const currentLangDisplay = document.getElementById('current-language');
+            if (currentLangDisplay) {
+                currentLangDisplay.textContent = selectedLang;
+            }
+
+            // Add AI greeting in selected language
+            const greetings = {
                 'hindi': 'नमस्ते! मैं आपका AI साथी हूं। आज आप कैसा महसूस कर रहे हैं?',
                 'bengali': 'নমস্কার! আমি আপনার AI সঙ্গী। আজ আপনি কেমন অনুভব করছেন?',
                 'telugu': 'నమస్కారం! నేను మీ AI సహచరుడిని। ఈరోజు మీరు ఎలా అనుభవిస్తున్నారు?',
@@ -874,41 +1900,8 @@
                 'gujarati': 'નમસ્તે! હું તમારો AI સાથી છું. આજે તમે કેવું અનુભવો છો?'
             };
 
-            const selectedLang = languageNames[language] || language;
-            const response = responses[language] || 'Hello! I am your AI companion. How are you feeling today?';
-
-            // Create a more interactive demo
-            const demoContent = `
-                <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-6 mt-4">
-                    <h4 class="font-semibold text-gray-900 mb-3">🎯 Language Selected: ${selectedLang}</h4>
-                    <div class="bg-white rounded-lg p-4 border-l-4 border-blue-500 mb-4">
-                        <div class="text-sm text-gray-600 mb-1">AI Companion:</div>
-                        <div class="text-gray-800 font-medium">${response}</div>
-                    </div>
-                    <div class="text-sm text-gray-600">
-                        <p class="mb-2">✨ <strong>In the full version, you would experience:</strong></p>
-                        <ul class="space-y-1 text-xs">
-                            <li>• Real-time conversation in ${selectedLang}</li>
-                            <li>• Cultural context and appropriate responses</li>
-                            <li>• Voice recognition and synthesis</li>
-                            <li>• Emotion detection from your text and voice</li>
-                            <li>• Personalized therapy sessions</li>
-                        </ul>
-                    </div>
-                </div>
-            `;
-
-            // Show demo content
-            const existingDemo = document.querySelector('.language-demo');
-            if (existingDemo) {
-                existingDemo.remove();
-            }
-
-            const languageGrid = document.querySelector('.language-grid');
-            const demoDiv = document.createElement('div');
-            demoDiv.className = 'language-demo';
-            demoDiv.innerHTML = demoContent;
-            languageGrid.parentNode.insertBefore(demoDiv, languageGrid.nextSibling);
+            const greeting = greetings[language] || 'Hello! I am your AI companion. How are you feeling today?';
+            addMessage('ai', greeting);
 
             // Highlight selected language card
             document.querySelectorAll('.language-card').forEach(card => {
@@ -916,19 +1909,89 @@
                 card.style.background = 'white';
             });
 
-            event.target.closest('.language-card').style.borderColor = '#3b82f6';
-            event.target.closest('.language-card').style.background = '#eff6ff';
+            if (event && event.target) {
+                const selectedCard = event.target.closest('.language-card');
+                if (selectedCard) {
+                    selectedCard.style.borderColor = '#3b82f6';
+                    selectedCard.style.background = '#eff6ff';
+                }
+            }
 
-            // Track language selection
             console.log(`Language selected: ${language}`);
+        }
 
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'language_selected', {
-                    'language': language,
-                    'event_category': 'localization'
-                });
+        // Avatar Functions
+        function changeAvatarEmotion(emotion) {
+            const avatarCanvas = document.getElementById('avatar-canvas');
+            const avatarContent = avatarCanvas.querySelector('.text-center');
+
+            const emotionIcons = {
+                'happy': '😊',
+                'sad': '😢',
+                'thinking': '🤔',
+                'excited': '🤩',
+                'neutral': '🤖'
+            };
+
+            const emotionColors = {
+                'happy': 'text-yellow-300',
+                'sad': 'text-blue-300',
+                'thinking': 'text-purple-300',
+                'excited': 'text-red-300',
+                'neutral': 'text-white'
+            };
+
+            if (avatarContent) {
+                const iconElement = avatarContent.querySelector('.text-6xl');
+                if (iconElement) {
+                    iconElement.textContent = emotionIcons[emotion] || emotionIcons['neutral'];
+                    iconElement.className = `text-6xl mb-4 animate-bounce ${emotionColors[emotion] || emotionColors['neutral']}`;
+                }
             }
         }
+
+        function speakAvatar(text) {
+            // Simulate avatar speaking animation
+            const avatarCanvas = document.getElementById('avatar-canvas');
+            const statusElement = avatarCanvas.querySelector('.text-lg');
+
+            if (statusElement) {
+                statusElement.textContent = 'Speaking...';
+                statusElement.classList.add('animate-pulse');
+
+                // Use Web Speech API if available
+                if ('speechSynthesis' in window) {
+                    const utterance = new SpeechSynthesisUtterance(text);
+                    utterance.rate = 0.8;
+                    utterance.pitch = 1.1;
+
+                    utterance.onend = () => {
+                        statusElement.textContent = 'AI Avatar Active';
+                        statusElement.classList.remove('animate-pulse');
+                    };
+
+                    speechSynthesis.speak(utterance);
+                } else {
+                    // Fallback animation
+                    setTimeout(() => {
+                        statusElement.textContent = 'AI Avatar Active';
+                        statusElement.classList.remove('animate-pulse');
+                    }, 3000);
+                }
+            }
+        }
+
+        // Handle Enter key in chat input
+        document.addEventListener('DOMContentLoaded', function() {
+            const messageInput = document.getElementById('message-input');
+            if (messageInput) {
+                messageInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        sendMessage();
+                    }
+                });
+            }
+        });
 
         // Close modal when clicking outside
         document.addEventListener('click', function(e) {
@@ -948,9 +2011,1079 @@
             }
         });
 
+        // 3D Virtual World Engine
+        let scene, camera, renderer, world, avatarMesh;
+        let isWorldLoaded = false;
+        let currentWorld = 'garden';
+        let avatarPosition = { x: 0, y: 0, z: 0 };
+
+        function initVirtualWorld() {
+            const canvas = document.getElementById('virtual-world-canvas');
+            const container = document.getElementById('virtual-world-container');
+
+            // Initialize Three.js scene
+            scene = new THREE.Scene();
+            camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+            renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setClearColor(0x87CEEB); // Sky blue
+            renderer.shadowMap.enabled = true;
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+            // Add lighting
+            const ambientLight = new THREE.AmbientLight(0x404040, 0.6);
+            scene.add(ambientLight);
+
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            directionalLight.position.set(50, 50, 50);
+            directionalLight.castShadow = true;
+            directionalLight.shadow.mapSize.width = 2048;
+            directionalLight.shadow.mapSize.height = 2048;
+            scene.add(directionalLight);
+
+            // Create ground
+            const groundGeometry = new THREE.PlaneGeometry(100, 100);
+            const groundMaterial = new THREE.MeshLambertMaterial({ color: 0x90EE90 });
+            const ground = new THREE.Mesh(groundGeometry, groundMaterial);
+            ground.rotation.x = -Math.PI / 2;
+            ground.receiveShadow = true;
+            scene.add(ground);
+
+            // Create avatar
+            createAvatar();
+
+            // Create world environment
+            createWorldEnvironment(currentWorld);
+
+            // Position camera
+            camera.position.set(0, 10, 20);
+            camera.lookAt(0, 0, 0);
+
+            // Start render loop
+            animate();
+
+            // Hide loading screen
+            setTimeout(() => {
+                document.getElementById('world-loading').style.display = 'none';
+                document.getElementById('world-ui').style.display = 'block';
+                isWorldLoaded = true;
+                showNotification('🌍 Virtual world loaded successfully!', 'success');
+            }, 2000);
+        }
+
+        function createAvatar() {
+            // Create simple avatar
+            const avatarGroup = new THREE.Group();
+
+            // Body
+            const bodyGeometry = new THREE.CylinderGeometry(0.5, 0.7, 2, 8);
+            const bodyMaterial = new THREE.MeshLambertMaterial({ color: 0x4169E1 });
+            const body = new THREE.Mesh(bodyGeometry, bodyMaterial);
+            body.position.y = 1;
+            body.castShadow = true;
+            avatarGroup.add(body);
+
+            // Head
+            const headGeometry = new THREE.SphereGeometry(0.5, 16, 16);
+            const headMaterial = new THREE.MeshLambertMaterial({ color: 0xFFDBAC });
+            const head = new THREE.Mesh(headGeometry, headMaterial);
+            head.position.y = 2.5;
+            head.castShadow = true;
+            avatarGroup.add(head);
+
+            // Arms
+            const armGeometry = new THREE.CylinderGeometry(0.2, 0.2, 1.5, 8);
+            const armMaterial = new THREE.MeshLambertMaterial({ color: 0xFFDBAC });
+
+            const leftArm = new THREE.Mesh(armGeometry, armMaterial);
+            leftArm.position.set(-1, 1.5, 0);
+            leftArm.castShadow = true;
+            avatarGroup.add(leftArm);
+
+            const rightArm = new THREE.Mesh(armGeometry, armMaterial);
+            rightArm.position.set(1, 1.5, 0);
+            rightArm.castShadow = true;
+            avatarGroup.add(rightArm);
+
+            avatarMesh = avatarGroup;
+            scene.add(avatarMesh);
+        }
+
+        function createWorldEnvironment(worldType) {
+            // Clear existing environment objects
+            const objectsToRemove = [];
+            scene.traverse((child) => {
+                if (child.userData.isEnvironment) {
+                    objectsToRemove.push(child);
+                }
+            });
+            objectsToRemove.forEach(obj => scene.remove(obj));
+
+            switch(worldType) {
+                case 'garden':
+                    createGardenEnvironment();
+                    break;
+                case 'temple':
+                    createTempleEnvironment();
+                    break;
+                case 'beach':
+                    createBeachEnvironment();
+                    break;
+                case 'forest':
+                    createForestEnvironment();
+                    break;
+            }
+        }
+
+        function createGardenEnvironment() {
+            // Create flowers
+            for (let i = 0; i < 20; i++) {
+                const flowerGeometry = new THREE.SphereGeometry(0.3, 8, 8);
+                const flowerMaterial = new THREE.MeshLambertMaterial({
+                    color: new THREE.Color().setHSL(Math.random(), 0.8, 0.6)
+                });
+                const flower = new THREE.Mesh(flowerGeometry, flowerMaterial);
+                flower.position.set(
+                    (Math.random() - 0.5) * 40,
+                    0.3,
+                    (Math.random() - 0.5) * 40
+                );
+                flower.userData.isEnvironment = true;
+                scene.add(flower);
+            }
+
+            // Create trees
+            for (let i = 0; i < 10; i++) {
+                const treeGroup = new THREE.Group();
+
+                // Trunk
+                const trunkGeometry = new THREE.CylinderGeometry(0.3, 0.5, 4, 8);
+                const trunkMaterial = new THREE.MeshLambertMaterial({ color: 0x8B4513 });
+                const trunk = new THREE.Mesh(trunkGeometry, trunkMaterial);
+                trunk.position.y = 2;
+                treeGroup.add(trunk);
+
+                // Leaves
+                const leavesGeometry = new THREE.SphereGeometry(2, 12, 12);
+                const leavesMaterial = new THREE.MeshLambertMaterial({ color: 0x228B22 });
+                const leaves = new THREE.Mesh(leavesGeometry, leavesMaterial);
+                leaves.position.y = 5;
+                treeGroup.add(leaves);
+
+                treeGroup.position.set(
+                    (Math.random() - 0.5) * 60,
+                    0,
+                    (Math.random() - 0.5) * 60
+                );
+                treeGroup.userData.isEnvironment = true;
+                scene.add(treeGroup);
+            }
+        }
+
+        function createTempleEnvironment() {
+            // Create temple structure
+            const templeGeometry = new THREE.BoxGeometry(8, 6, 8);
+            const templeMaterial = new THREE.MeshLambertMaterial({ color: 0xDEB887 });
+            const temple = new THREE.Mesh(templeGeometry, templeMaterial);
+            temple.position.set(0, 3, -10);
+            temple.userData.isEnvironment = true;
+            scene.add(temple);
+
+            // Create pillars
+            for (let i = 0; i < 4; i++) {
+                const pillarGeometry = new THREE.CylinderGeometry(0.5, 0.5, 8, 12);
+                const pillarMaterial = new THREE.MeshLambertMaterial({ color: 0xF5DEB3 });
+                const pillar = new THREE.Mesh(pillarGeometry, pillarMaterial);
+                const angle = (i / 4) * Math.PI * 2;
+                pillar.position.set(Math.cos(angle) * 6, 4, -10 + Math.sin(angle) * 6);
+                pillar.userData.isEnvironment = true;
+                scene.add(pillar);
+            }
+        }
+
+        function createBeachEnvironment() {
+            // Change ground color to sand
+            scene.children.forEach(child => {
+                if (child.geometry && child.geometry.type === 'PlaneGeometry') {
+                    child.material.color.setHex(0xF4A460);
+                }
+            });
+
+            // Create water
+            const waterGeometry = new THREE.PlaneGeometry(50, 20);
+            const waterMaterial = new THREE.MeshLambertMaterial({
+                color: 0x006994,
+                transparent: true,
+                opacity: 0.7
+            });
+            const water = new THREE.Mesh(waterGeometry, waterMaterial);
+            water.rotation.x = -Math.PI / 2;
+            water.position.set(0, 0.1, -30);
+            water.userData.isEnvironment = true;
+            scene.add(water);
+
+            // Create palm trees
+            for (let i = 0; i < 5; i++) {
+                const palmGroup = new THREE.Group();
+
+                const trunkGeometry = new THREE.CylinderGeometry(0.3, 0.4, 8, 8);
+                const trunkMaterial = new THREE.MeshLambertMaterial({ color: 0x8B4513 });
+                const trunk = new THREE.Mesh(trunkGeometry, trunkMaterial);
+                trunk.position.y = 4;
+                palmGroup.add(trunk);
+
+                // Palm leaves
+                for (let j = 0; j < 6; j++) {
+                    const leafGeometry = new THREE.CylinderGeometry(0.1, 0.1, 3, 4);
+                    const leafMaterial = new THREE.MeshLambertMaterial({ color: 0x228B22 });
+                    const leaf = new THREE.Mesh(leafGeometry, leafMaterial);
+                    const angle = (j / 6) * Math.PI * 2;
+                    leaf.position.set(Math.cos(angle) * 1.5, 8, Math.sin(angle) * 1.5);
+                    leaf.rotation.z = angle;
+                    palmGroup.add(leaf);
+                }
+
+                palmGroup.position.set(
+                    (Math.random() - 0.5) * 40,
+                    0,
+                    Math.random() * 20 + 10
+                );
+                palmGroup.userData.isEnvironment = true;
+                scene.add(palmGroup);
+            }
+        }
+
+        function createForestEnvironment() {
+            // Create dense forest
+            for (let i = 0; i < 30; i++) {
+                const treeGroup = new THREE.Group();
+
+                const trunkGeometry = new THREE.CylinderGeometry(0.4, 0.6, 6, 8);
+                const trunkMaterial = new THREE.MeshLambertMaterial({ color: 0x654321 });
+                const trunk = new THREE.Mesh(trunkGeometry, trunkMaterial);
+                trunk.position.y = 3;
+                treeGroup.add(trunk);
+
+                const leavesGeometry = new THREE.ConeGeometry(3, 8, 8);
+                const leavesMaterial = new THREE.MeshLambertMaterial({ color: 0x006400 });
+                const leaves = new THREE.Mesh(leavesGeometry, leavesMaterial);
+                leaves.position.y = 8;
+                treeGroup.add(leaves);
+
+                treeGroup.position.set(
+                    (Math.random() - 0.5) * 80,
+                    0,
+                    (Math.random() - 0.5) * 80
+                );
+                treeGroup.userData.isEnvironment = true;
+                scene.add(treeGroup);
+            }
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            if (renderer && scene && camera) {
+                // Rotate avatar slightly for idle animation
+                if (avatarMesh) {
+                    avatarMesh.rotation.y += 0.005;
+                }
+
+                renderer.render(scene, camera);
+            }
+        }
+
+        function moveAvatar(direction) {
+            if (!avatarMesh) return;
+
+            const moveSpeed = 0.5;
+
+            switch(direction) {
+                case 'forward':
+                    avatarMesh.position.z -= moveSpeed;
+                    camera.position.z -= moveSpeed;
+                    break;
+                case 'backward':
+                    avatarMesh.position.z += moveSpeed;
+                    camera.position.z += moveSpeed;
+                    break;
+                case 'left':
+                    avatarMesh.position.x -= moveSpeed;
+                    camera.position.x -= moveSpeed;
+                    break;
+                case 'right':
+                    avatarMesh.position.x += moveSpeed;
+                    camera.position.x += moveSpeed;
+                    break;
+                case 'stop':
+                    // Stop any ongoing movement
+                    break;
+            }
+
+            // Update avatar status
+            document.getElementById('avatar-status').textContent = `Moving ${direction}`;
+            setTimeout(() => {
+                document.getElementById('avatar-status').textContent = 'Exploring';
+            }, 1000);
+        }
+
+        function teleportTo(location) {
+            if (!avatarMesh) return;
+
+            currentWorld = location;
+            createWorldEnvironment(location);
+
+            // Reset avatar position
+            avatarMesh.position.set(0, 0, 0);
+            camera.position.set(0, 10, 20);
+            camera.lookAt(0, 0, 0);
+
+            const locationNames = {
+                'garden': '🌸 Meditation Garden',
+                'temple': '🏛️ Peace Temple',
+                'beach': '🏖️ Calm Beach',
+                'forest': '🌲 Healing Forest'
+            };
+
+            document.getElementById('current-location').textContent = locationNames[location];
+            showNotification(`🌍 Teleported to ${locationNames[location]}`, 'success');
+        }
+
+        function enterFullscreen() {
+            const container = document.getElementById('virtual-world-container');
+            if (container.requestFullscreen) {
+                container.requestFullscreen();
+            }
+        }
+
+        function toggleVR() {
+            showNotification('🥽 VR mode coming soon! Use fullscreen for immersive experience.', 'info');
+        }
+
+        function openChat() {
+            showNotification('💬 Virtual world chat opened!', 'info');
+        }
+
+        function findFriends() {
+            showNotification('👥 Searching for nearby users...', 'info');
+        }
+
+        function joinActivity() {
+            const activities = ['Group Meditation', 'Art Therapy Circle', 'Music Healing Session', 'Support Group'];
+            const randomActivity = activities[Math.floor(Math.random() * activities.length)];
+            showNotification(`🎯 Joined ${randomActivity}!`, 'success');
+            document.getElementById('activity-status').textContent = randomActivity;
+        }
+
+        // Virtual World Functions
+        function changeAvatar(type) {
+            const avatarDisplay = document.querySelector('#virtual-world-canvas .grid');
+            const yourAvatarCard = avatarDisplay.children[0];
+
+            const avatarIcons = {
+                'male': '👨',
+                'female': '👩',
+                'custom': '🎭'
+            };
+
+            const avatarIcon = yourAvatarCard.querySelector('.text-2xl');
+            if (avatarIcon) {
+                avatarIcon.textContent = avatarIcons[type];
+            }
+
+            console.log(`Avatar changed to: ${type}`);
+        }
+
+        function avatarAction(action) {
+            const avatarDisplay = document.querySelector('#virtual-world-canvas .grid');
+            const yourAvatarCard = avatarDisplay.children[0];
+            const actionText = yourAvatarCard.querySelector('.text-xs');
+
+            const actions = {
+                'wave': '👋 Waving',
+                'meditate': '🧘 Meditating',
+                'dance': '💃 Dancing'
+            };
+
+            if (actionText) {
+                actionText.textContent = actions[action];
+
+                // Add animation effect
+                yourAvatarCard.classList.add('animate-pulse');
+                setTimeout(() => {
+                    yourAvatarCard.classList.remove('animate-pulse');
+                    actionText.textContent = 'You';
+                }, 3000);
+            }
+
+            console.log(`Avatar action: ${action}`);
+        }
+
+        function changeVirtualSpace(space) {
+            const virtualWorld = document.getElementById('virtual-world-canvas');
+            const titleElement = virtualWorld.querySelector('.text-xl');
+            const descElement = virtualWorld.querySelector('.text-sm');
+
+            const spaces = {
+                'garden': {
+                    title: '🌸 Meditation Garden',
+                    description: 'A peaceful space filled with blooming flowers and gentle streams',
+                    gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+                },
+                'temple': {
+                    title: '🏛️ Peace Temple',
+                    description: 'Ancient temple grounds with sacred energy and tranquil atmosphere',
+                    gradient: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)'
+                },
+                'beach': {
+                    title: '🏖️ Calm Beach',
+                    description: 'Serene coastline with gentle waves and warm golden sand',
+                    gradient: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)'
+                },
+                'forest': {
+                    title: '🌲 Healing Forest',
+                    description: 'Lush green forest with ancient trees and healing energy',
+                    gradient: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)'
+                }
+            };
+
+            const selectedSpace = spaces[space];
+            if (selectedSpace && titleElement && descElement) {
+                titleElement.textContent = selectedSpace.title;
+                descElement.textContent = selectedSpace.description;
+                virtualWorld.parentElement.style.background = selectedSpace.gradient;
+            }
+
+            console.log(`Virtual space changed to: ${space}`);
+        }
+
+        function joinActivity(activity) {
+            const activities = {
+                'meditation': 'Joined Group Meditation session. Find your inner peace with others.',
+                'support': 'Joined Support Circle. Share and listen in a safe space.',
+                'art': 'Joined Art Therapy session. Express yourself through creative healing.',
+                'music': 'Joined Music Healing session. Let the rhythms soothe your soul.'
+            };
+
+            const message = activities[activity];
+            if (message) {
+                // Show notification
+                showNotification(`🎯 ${message}`, 'success');
+            }
+
+            console.log(`Joined activity: ${activity}`);
+        }
+
+        // Creation Functions
+        function analyzeMood() {
+            const moodDisplay = document.getElementById('detected-mood');
+            const moods = ['happy', 'peaceful', 'creative', 'energetic', 'contemplative'];
+            const moodIcons = {
+                'happy': '😊',
+                'peaceful': '😌',
+                'creative': '🎨',
+                'energetic': '⚡',
+                'contemplative': '🤔'
+            };
+
+            // Simulate mood analysis
+            moodDisplay.textContent = '🔍 Analyzing...';
+            moodDisplay.className = 'emotion-indicator emotion-neutral animate-pulse';
+
+            setTimeout(() => {
+                const detectedMood = moods[Math.floor(Math.random() * moods.length)];
+                moodDisplay.textContent = `${moodIcons[detectedMood]} ${detectedMood.charAt(0).toUpperCase() + detectedMood.slice(1)}`;
+                moodDisplay.className = `emotion-indicator emotion-${detectedMood}`;
+                currentEmotion = detectedMood;
+            }, 2000);
+        }
+
+        function setColorMood(mood) {
+            selectedColorMood = mood;
+
+            // Update button states
+            document.querySelectorAll('[onclick^="setColorMood"]').forEach(btn => {
+                btn.classList.remove('ring-2', 'ring-blue-500');
+            });
+
+            event.target.classList.add('ring-2', 'ring-blue-500');
+            console.log(`Color mood set to: ${mood}`);
+        }
+
+        function generateArt() {
+            const artContainer = document.getElementById('generated-art');
+            const style = document.getElementById('art-style').value;
+
+            artContainer.style.display = 'block';
+
+            const artStyles = {
+                'mandala': {
+                    gradient: 'linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4)',
+                    description: 'Beautiful mandala art generated based on your peaceful mood'
+                },
+                'nature': {
+                    gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                    description: 'Serene nature scene reflecting your inner tranquility'
+                },
+                'abstract': {
+                    gradient: 'linear-gradient(45deg, #f093fb 0%, #f5576c 100%)',
+                    description: 'Abstract expression of your current emotional state'
+                },
+                'indian': {
+                    gradient: 'linear-gradient(135deg, #ffeaa7 0%, #fab1a0 50%, #fd79a8 100%)',
+                    description: 'Traditional Indian art pattern inspired by your mood'
+                }
+            };
+
+            const selectedStyle = artStyles[style];
+            const artDisplay = artContainer.querySelector('.bg-gradient-to-br');
+            const artDescription = artContainer.querySelector('p');
+
+            if (artDisplay && selectedStyle) {
+                artDisplay.style.background = selectedStyle.gradient;
+                artDescription.textContent = selectedStyle.description;
+            }
+
+            showNotification('🎨 Artwork generated successfully!', 'success');
+        }
+
+        // Utility Functions
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `fixed top-4 right-4 z-50 p-4 rounded-lg shadow-lg transition-all duration-300 transform translate-x-full`;
+
+            const colors = {
+                'success': 'bg-green-500 text-white',
+                'error': 'bg-red-500 text-white',
+                'warning': 'bg-yellow-500 text-black',
+                'info': 'bg-blue-500 text-white'
+            };
+
+            notification.className += ` ${colors[type]}`;
+            notification.textContent = message;
+
+            document.body.appendChild(notification);
+
+            // Animate in
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full');
+            }, 100);
+
+            // Animate out and remove
+            setTimeout(() => {
+                notification.classList.add('translate-x-full');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        function toggleInstrument(instrument) {
+            if (selectedInstruments.includes(instrument)) {
+                selectedInstruments = selectedInstruments.filter(i => i !== instrument);
+                event.target.classList.remove('ring-2', 'ring-blue-500');
+            } else {
+                selectedInstruments.push(instrument);
+                event.target.classList.add('ring-2', 'ring-blue-500');
+            }
+
+            console.log('Selected instruments:', selectedInstruments);
+        }
+
+        function generateMusic() {
+            const musicContainer = document.getElementById('generated-music');
+            const style = document.getElementById('music-style').value;
+
+            musicContainer.style.display = 'block';
+
+            const musicStyles = {
+                'classical': {
+                    title: 'Peaceful Raga Composition',
+                    duration: '3:45',
+                    instruments: 'Sitar & Tabla'
+                },
+                'ambient': {
+                    title: 'Healing Ambient Soundscape',
+                    duration: '5:20',
+                    instruments: 'Synthesizer & Nature Sounds'
+                },
+                'nature': {
+                    title: 'Forest Meditation Track',
+                    duration: '4:15',
+                    instruments: 'Birds & Water Sounds'
+                },
+                'meditation': {
+                    title: 'Deep Meditation Music',
+                    duration: '6:00',
+                    instruments: 'Tibetan Bowls & Flute'
+                }
+            };
+
+            const selectedStyle = musicStyles[style];
+            const titleElement = musicContainer.querySelector('.font-bold');
+            const durationElement = musicContainer.querySelector('.text-sm.opacity-75');
+
+            if (titleElement && selectedStyle) {
+                titleElement.textContent = selectedStyle.title;
+                durationElement.textContent = `${selectedStyle.duration} minutes • ${selectedStyle.instruments}`;
+            }
+
+            showNotification('🎵 Music composition created!', 'success');
+        }
+
+        function playMusic() {
+            showNotification('🎵 Playing your personalized music...', 'info');
+        }
+
+        function downloadMusic() {
+            showNotification('💾 Music downloaded to your device!', 'success');
+        }
+
+        function setCulture(culture) {
+            selectedCulture = culture;
+
+            // Update button states
+            document.querySelectorAll('[onclick^="setCulture"]').forEach(btn => {
+                btn.classList.remove('ring-2', 'ring-blue-500');
+            });
+
+            event.target.classList.add('ring-2', 'ring-blue-500');
+            console.log(`Culture set to: ${culture}`);
+        }
+
+        function generateStory() {
+            const storyContainer = document.getElementById('generated-story');
+            const storyType = document.getElementById('story-type').value;
+
+            storyContainer.style.display = 'block';
+
+            const stories = {
+                'motivational': {
+                    title: 'The Resilient Lotus',
+                    content: 'In a small village in Kerala, there lived a young woman named Kavya who learned that like the lotus that blooms beautifully despite growing in muddy water, our greatest strength often comes from our deepest struggles. Every challenge she faced became a stepping stone to her inner wisdom...'
+                },
+                'peaceful': {
+                    title: 'The Peaceful Garden',
+                    content: 'In a small village nestled in the Western Ghats, there lived a young woman named Meera who discovered that the secret to inner peace lay not in avoiding life\'s storms, but in learning to dance in the rain. Every morning, she would tend to her grandmother\'s garden, where each flower taught her a lesson about resilience, growth, and the beauty of impermanence...'
+                },
+                'wisdom': {
+                    title: 'The Wise Banyan Tree',
+                    content: 'Under the ancient banyan tree in the village square, old Guruji would share stories of wisdom passed down through generations. One day, a troubled youth approached him seeking answers. "The tree has stood here for centuries," Guruji said, "not because it fought the storms, but because it learned to bend without breaking..."'
+                },
+                'healing': {
+                    title: 'The Healing Waters',
+                    content: 'High in the Himalayas, there was a sacred spring known for its healing properties. But the real magic wasn\'t in the water itself—it was in the journey pilgrims took to reach it. Each step up the mountain path represented letting go of old wounds and embracing new possibilities...'
+                }
+            };
+
+            const selectedStory = stories[storyType];
+            const titleElement = storyContainer.querySelector('h4');
+            const contentElement = storyContainer.querySelector('p');
+
+            if (titleElement && selectedStory) {
+                titleElement.textContent = selectedStory.title;
+                contentElement.textContent = selectedStory.content;
+            }
+
+            showNotification('📖 Story created based on your mood!', 'success');
+        }
+
+        function readStory() {
+            const storyContent = document.querySelector('#generated-story p').textContent;
+
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(storyContent);
+                utterance.rate = 0.8;
+                utterance.pitch = 1.0;
+                speechSynthesis.speak(utterance);
+                showNotification('🔊 Reading story aloud...', 'info');
+            } else {
+                showNotification('🔊 Text-to-speech not supported in this browser', 'warning');
+            }
+        }
+
+        function continueStory() {
+            const continuations = [
+                "As the days passed, Meera's garden became a sanctuary not just for her, but for the entire village. People would come seeking solace among the flowers, and each visitor left with a seed of hope planted in their heart...",
+                "The village children began to gather around Meera each evening, eager to hear the stories that each flower whispered to her. Through these tales, they learned that every ending was simply a new beginning in disguise...",
+                "One monsoon evening, when the rains threatened to destroy everything she had built, Meera realized that true strength wasn't in protecting what we love from change, but in trusting that love itself would guide us through any transformation..."
+            ];
+
+            const randomContinuation = continuations[Math.floor(Math.random() * continuations.length)];
+            const contentElement = document.querySelector('#generated-story p');
+
+            if (contentElement) {
+                contentElement.textContent += '\n\n' + randomContinuation;
+            }
+
+            showNotification('📖 Story continued...', 'success');
+        }
+
+        // Emergency Support Functions
+        function makeEmergencyCall(number, service) {
+            // Show confirmation dialog
+            const confirmed = confirm(`Are you sure you want to call ${service} at ${number}?\n\nThis will attempt to open your phone's dialer.`);
+
+            if (confirmed) {
+                // Try to open phone dialer
+                window.location.href = `tel:${number}`;
+
+                // Log the call attempt
+                console.log(`Emergency call initiated: ${service} - ${number}`);
+
+                // Show confirmation
+                showNotification(`📞 Calling ${service}... Please wait for connection.`, 'info');
+
+                // Track emergency call
+                if (typeof gtag !== 'undefined') {
+                    gtag('event', 'emergency_call', {
+                        'service': service,
+                        'number': number,
+                        'event_category': 'emergency'
+                    });
+                }
+
+                // Show crisis alert if not already shown
+                const crisisAlert = document.getElementById('crisis-alert');
+                if (crisisAlert) {
+                    crisisAlert.style.display = 'block';
+                }
+            }
+        }
+
+        function startCrisisChat() {
+            const chatContainer = document.getElementById('crisis-chat-container');
+            const messagesContainer = document.getElementById('crisis-messages');
+
+            chatContainer.style.display = 'block';
+
+            // Add initial AI message
+            const initialMessage = document.createElement('div');
+            initialMessage.className = 'bg-blue-100 dark:bg-blue-800 p-3 rounded-lg';
+            initialMessage.innerHTML = `
+                <div class="font-medium text-blue-800 dark:text-blue-200">Crisis Support AI</div>
+                <div class="text-blue-700 dark:text-blue-300">I'm here to help you through this difficult moment. You're not alone. Can you tell me how you're feeling right now?</div>
+            `;
+            messagesContainer.appendChild(initialMessage);
+
+            // Focus on input
+            document.getElementById('crisis-input').focus();
+        }
+
+        function sendCrisisMessage() {
+            const input = document.getElementById('crisis-input');
+            const message = input.value.trim();
+
+            if (!message) return;
+
+            const messagesContainer = document.getElementById('crisis-messages');
+
+            // Add user message
+            const userMessage = document.createElement('div');
+            userMessage.className = 'bg-gray-100 dark:bg-gray-700 p-3 rounded-lg ml-8';
+            userMessage.innerHTML = `
+                <div class="font-medium text-gray-800 dark:text-gray-200">You</div>
+                <div class="text-gray-700 dark:text-gray-300">${message}</div>
+            `;
+            messagesContainer.appendChild(userMessage);
+
+            input.value = '';
+
+            // Generate AI crisis response
+            setTimeout(() => {
+                const aiResponse = generateCrisisResponse(message);
+                const aiMessage = document.createElement('div');
+                aiMessage.className = 'bg-blue-100 dark:bg-blue-800 p-3 rounded-lg mr-8';
+                aiMessage.innerHTML = `
+                    <div class="font-medium text-blue-800 dark:text-blue-200">Crisis Support AI</div>
+                    <div class="text-blue-700 dark:text-blue-300">${aiResponse}</div>
+                `;
+                messagesContainer.appendChild(aiMessage);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 1000);
+
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+
+        function generateCrisisResponse(userMessage) {
+            const responses = [
+                "I hear that you're in pain right now, and I want you to know that your feelings are valid. You've taken a brave step by reaching out. Can you tell me if you're in a safe place right now?",
+                "Thank you for sharing that with me. It takes courage to express these feelings. Remember that this intense pain you're feeling right now is temporary, even though it doesn't feel that way. What has helped you cope with difficult feelings in the past?",
+                "I'm concerned about you and I want to help. You mentioned feeling overwhelmed - that's a very human response to stress. Have you been able to eat or sleep recently? Taking care of your basic needs is important right now.",
+                "What you're going through sounds incredibly difficult. I want you to know that there are people who care about you and want to help. Would it be helpful to talk about what's been weighing on your mind the most?",
+                "I can sense the depth of your struggle, and I want you to know that you don't have to face this alone. Many people have felt similar to how you're feeling now and have found their way through. What would feel most supportive to you right now?"
+            ];
+
+            return responses[Math.floor(Math.random() * responses.length)];
+        }
+
+        function closeCrisisChat() {
+            document.getElementById('crisis-chat-container').style.display = 'none';
+        }
+
+        function startBreathingExercise() {
+            const breathingContainer = document.getElementById('breathing-exercise');
+            breathingContainer.style.display = 'block';
+            breathingContainer.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        let breathingInterval;
+        let breathingCycle = 0;
+
+        function startBreathing() {
+            const circle = document.getElementById('breathing-circle');
+            const instruction = document.getElementById('breathing-instruction');
+            const startBtn = document.getElementById('start-breathing');
+            const stopBtn = document.getElementById('stop-breathing');
+
+            startBtn.style.display = 'none';
+            stopBtn.style.display = 'inline-block';
+
+            breathingInterval = setInterval(() => {
+                if (breathingCycle % 2 === 0) {
+                    // Inhale
+                    instruction.textContent = 'Breathe in slowly... 4 seconds';
+                    circle.style.transform = 'scale(1.5)';
+                    circle.style.backgroundColor = '#86efac';
+                } else {
+                    // Exhale
+                    instruction.textContent = 'Breathe out slowly... 4 seconds';
+                    circle.style.transform = 'scale(1)';
+                    circle.style.backgroundColor = '#93c5fd';
+                }
+                breathingCycle++;
+            }, 4000);
+        }
+
+        function stopBreathing() {
+            clearInterval(breathingInterval);
+            const circle = document.getElementById('breathing-circle');
+            const instruction = document.getElementById('breathing-instruction');
+            const startBtn = document.getElementById('start-breathing');
+            const stopBtn = document.getElementById('stop-breathing');
+
+            startBtn.style.display = 'inline-block';
+            stopBtn.style.display = 'none';
+
+            circle.style.transform = 'scale(1)';
+            circle.style.backgroundColor = '#d1fae5';
+            instruction.textContent = 'Great job! You can restart anytime.';
+            breathingCycle = 0;
+        }
+
+        function openSafetyPlan() {
+            const safetyPlan = `
+                📋 Personal Safety Plan
+
+                1. Warning Signs:
+                   • Feeling overwhelmed or hopeless
+                   • Isolating from friends and family
+                   • Changes in sleep or appetite
+
+                2. Coping Strategies:
+                   • Deep breathing exercises
+                   • Call a trusted friend
+                   • Go for a walk in nature
+                   • Listen to calming music
+
+                3. Support Contacts:
+                   • KIRAN: 1800-599-0019
+                   • Vandrevala: 9999666555
+                   • Emergency: 112
+
+                4. Professional Help:
+                   • Your therapist: [Add contact]
+                   • Local mental health center
+                   • Hospital emergency room
+
+                Remember: You are not alone. Help is always available.
+            `;
+
+            alert(safetyPlan);
+        }
+
+        // Enhanced Creation Functions
+        function generateArt() {
+            const artContainer = document.getElementById('generated-art');
+            const style = document.getElementById('art-style').value;
+
+            artContainer.style.display = 'block';
+
+            // Show generation process
+            const artDisplay = artContainer.querySelector('.bg-gradient-to-br');
+            artDisplay.innerHTML = `
+                <div class="flex items-center justify-center h-full">
+                    <div class="text-center text-white">
+                        <div class="animate-spin text-4xl mb-4">🎨</div>
+                        <div class="text-lg font-bold">Generating Art...</div>
+                        <div class="text-sm opacity-75">AI is creating your personalized artwork</div>
+                    </div>
+                </div>
+            `;
+
+            setTimeout(() => {
+                const artStyles = {
+                    'mandala': {
+                        gradient: 'linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4)',
+                        description: 'Beautiful mandala art generated based on your peaceful mood',
+                        content: '🌸 Healing Mandala'
+                    },
+                    'nature': {
+                        gradient: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                        description: 'Serene nature scene reflecting your inner tranquility',
+                        content: '🌄 Mountain Serenity'
+                    },
+                    'abstract': {
+                        gradient: 'linear-gradient(45deg, #f093fb 0%, #f5576c 100%)',
+                        description: 'Abstract expression of your current emotional state',
+                        content: '🎭 Emotional Flow'
+                    },
+                    'indian': {
+                        gradient: 'linear-gradient(135deg, #ffeaa7 0%, #fab1a0 50%, #fd79a8 100%)',
+                        description: 'Traditional Indian art pattern inspired by your mood',
+                        content: '🕉️ Sacred Geometry'
+                    }
+                };
+
+                const selectedStyle = artStyles[style];
+                artDisplay.style.background = selectedStyle.gradient;
+                artDisplay.innerHTML = `
+                    <div class="flex items-center justify-center h-full">
+                        <div class="text-center text-white">
+                            <div class="text-6xl mb-4">${selectedStyle.content}</div>
+                            <div class="text-lg font-bold">Artwork Complete!</div>
+                        </div>
+                    </div>
+                `;
+
+                const artDescription = artContainer.querySelector('p');
+                artDescription.textContent = selectedStyle.description;
+
+                showNotification('🎨 Artwork generated successfully!', 'success');
+            }, 3000);
+        }
+
+        function generateMusic() {
+            const musicContainer = document.getElementById('generated-music');
+            const style = document.getElementById('music-style').value;
+
+            musicContainer.style.display = 'block';
+
+            // Show generation process
+            const musicDisplay = musicContainer.querySelector('.bg-gradient-to-r');
+            musicDisplay.innerHTML = `
+                <div class="text-center text-white">
+                    <div class="animate-pulse text-4xl mb-2">🎵</div>
+                    <div class="font-bold">Composing Music...</div>
+                    <div class="text-sm opacity-75">AI is creating your healing soundtrack</div>
+                </div>
+            `;
+
+            setTimeout(() => {
+                const musicStyles = {
+                    'classical': {
+                        title: 'Peaceful Raga Composition',
+                        duration: '3:45',
+                        instruments: 'Sitar & Tabla',
+                        icon: '🎸'
+                    },
+                    'ambient': {
+                        title: 'Healing Ambient Soundscape',
+                        duration: '5:20',
+                        instruments: 'Synthesizer & Nature Sounds',
+                        icon: '🌊'
+                    },
+                    'nature': {
+                        title: 'Forest Meditation Track',
+                        duration: '4:15',
+                        instruments: 'Birds & Water Sounds',
+                        icon: '🌲'
+                    },
+                    'meditation': {
+                        title: 'Deep Meditation Music',
+                        duration: '6:00',
+                        instruments: 'Tibetan Bowls & Flute',
+                        icon: '🧘'
+                    }
+                };
+
+                const selectedStyle = musicStyles[style];
+                musicDisplay.innerHTML = `
+                    <div class="text-center text-white">
+                        <div class="text-4xl mb-2">${selectedStyle.icon}</div>
+                        <div class="font-bold">${selectedStyle.title}</div>
+                        <div class="text-sm opacity-75">${selectedStyle.duration} minutes • ${selectedStyle.instruments}</div>
+                    </div>
+                `;
+
+                showNotification('🎵 Music composition created!', 'success');
+            }, 2500);
+        }
+
+        function generateStory() {
+            const storyContainer = document.getElementById('generated-story');
+            const storyType = document.getElementById('story-type').value;
+
+            storyContainer.style.display = 'block';
+
+            // Show generation process
+            const titleElement = storyContainer.querySelector('h4');
+            const contentElement = storyContainer.querySelector('p');
+
+            titleElement.textContent = 'Creating Your Story...';
+            contentElement.innerHTML = `
+                <div class="text-center py-8">
+                    <div class="animate-pulse text-4xl mb-4">📖</div>
+                    <div class="text-lg font-bold">AI is crafting your personalized story...</div>
+                    <div class="text-sm opacity-75">Based on your mood and preferences</div>
+                </div>
+            `;
+
+            setTimeout(() => {
+                const stories = {
+                    'motivational': {
+                        title: 'The Resilient Lotus',
+                        content: 'In a small village in Kerala, there lived a young woman named Kavya who learned that like the lotus that blooms beautifully despite growing in muddy water, our greatest strength often comes from our deepest struggles. Every challenge she faced became a stepping stone to her inner wisdom. When the monsoons came and flooded her family\'s rice fields, instead of despair, she saw opportunity. She started a small business making lotus-inspired jewelry, each piece telling a story of transformation. Years later, her business had grown into a cooperative that employed dozens of women from her village, all of whom had learned that beauty and strength can emerge from the most difficult circumstances.'
+                    },
+                    'peaceful': {
+                        title: 'The Peaceful Garden',
+                        content: 'In a small village nestled in the Western Ghats, there lived a young woman named Meera who discovered that the secret to inner peace lay not in avoiding life\'s storms, but in learning to dance in the rain. Every morning, she would tend to her grandmother\'s garden, where each flower taught her a lesson about resilience, growth, and the beauty of impermanence. The roses showed her that even thorns serve a purpose, protecting what is precious. The jasmine taught her that the sweetest fragrances often come after the darkest nights. And the marigolds reminded her that even in the shortest seasons, one can shine brilliantly and bring joy to others.'
+                    },
+                    'wisdom': {
+                        title: 'The Wise Banyan Tree',
+                        content: 'Under the ancient banyan tree in the village square, old Guruji would share stories of wisdom passed down through generations. One day, a troubled youth approached him seeking answers to life\'s complexities. "The tree has stood here for centuries," Guruji said, pointing to the massive trunk, "not because it fought the storms, but because it learned to bend without breaking. Its roots run deep, its branches spread wide, and it provides shelter to all who seek it. This is the way of true strength - not rigid resistance, but flexible resilience, not selfish protection, but generous service." The youth understood that wisdom comes not from having all the answers, but from being rooted in compassion and growing toward the light.'
+                    },
+                    'healing': {
+                        title: 'The Healing Waters',
+                        content: 'High in the Himalayas, there was a sacred spring known for its healing properties. But the real magic wasn\'t in the water itself—it was in the journey pilgrims took to reach it. Each step up the mountain path represented letting go of old wounds and embracing new possibilities. Maya, a young teacher carrying the weight of past disappointments, began the trek with heavy steps. But as she climbed higher, breathing the pure mountain air and witnessing the breathtaking vistas, she felt her burdens lightening. By the time she reached the spring, she realized that the healing had already begun—not from the destination, but from the courage to take the first step toward transformation.'
+                    }
+                };
+
+                const selectedStory = stories[storyType];
+                titleElement.textContent = selectedStory.title;
+                contentElement.textContent = selectedStory.content;
+
+                showNotification('📖 Story created based on your mood!', 'success');
+            }, 4000);
+        }
+
         // Initialize page
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('MindfulConnect Demo Loaded');
+            console.log('MindfulConnect Platform Loaded');
+
+            // Initialize theme
+            initializeTheme();
+
+            // Initialize virtual world when modal opens
+            document.addEventListener('click', function(e) {
+                if (e.target.closest('[onclick*="virtual-community"]')) {
+                    setTimeout(() => {
+                        if (!isWorldLoaded) {
+                            initVirtualWorld();
+                        }
+                    }, 500);
+                }
+            });
 
             // Add click tracking for analytics
             document.querySelectorAll('.card-hover').forEach(card => {
