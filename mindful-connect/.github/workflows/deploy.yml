@@ -1,0 +1,45 @@
+name: Deploy MindfulConnect to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: |
+        npm ci
+        npm install three @react-three/fiber @react-three/drei
+        
+    - name: Build application
+      run: npm run build
+      env:
+        NEXT_PUBLIC_DEMO_MODE: true
+        
+    - name: Export static files
+      run: npm run export
+      
+    - name: Add .nojekyll file
+      run: touch ./out/.nojekyll
+      
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      if: github.ref == 'refs/heads/main'
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./out
+        cname: mindfulconnect.ai  # Optional: if you have a custom domain
