@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindfulConnect - AI Mental Health Platform for India 🇮🇳</title>
+    <meta name="description" content="AI Mental Health Platform for India with 18+ regional languages, 3D video calls, emotion detection, and multimedia generation. Built for Google Gen AI Exchange Hackathon.">
+    <meta name="keywords" content="mental health, AI, India, multilingual, video calls, emotion detection, healthcare, therapy">
+    <meta name="author" content="MindfulConnect Team">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="MindfulConnect - AI Mental Health Platform for India">
+    <meta property="og:description" content="Revolutionary AI-powered mental health support with 18+ Indian regional languages, 3D video calls, and multimedia generation.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourusername.github.io/mindful-connect">
+    <meta property="og:image" content="https://yourusername.github.io/mindful-connect/og-image.png">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="MindfulConnect - AI Mental Health Platform for India">
+    <meta name="twitter:description" content="Revolutionary AI-powered mental health support with 18+ Indian regional languages">
+    <meta name="twitter:image" content="https://yourusername.github.io/mindful-connect/og-image.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧠</text></svg>">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Styles -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .feature-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .card-hover:hover .feature-icon {
+            transform: scale(1.1);
+        }
+        
+        .browser-header {
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .demo-banner {
+            background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+        }
+        
+        .pulse-animation {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .typing-animation {
+            border-right: 2px solid #3b82f6;
+            animation: typing 3s steps(40) infinite;
+        }
+        
+        @keyframes typing {
+            0%, 50% { border-color: transparent; }
+            51%, 100% { border-color: #3b82f6; }
+        }
+        
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+        }
+        
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+        }
+        
+        .language-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .language-card {
+            padding: 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .language-card:hover {
+            border-color: #3b82f6;
+            background: #eff6ff;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Browser Header -->
+    <div class="browser-header px-4 py-2">
+        <div class="flex items-center space-x-2">
+            <div class="flex space-x-1">
+                <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+            </div>
+            <div class="flex items-center space-x-2 ml-4">
+                <i data-lucide="arrow-left" class="w-4 h-4 text-gray-400"></i>
+                <i data-lucide="arrow-right" class="w-4 h-4 text-gray-400"></i>
+                <i data-lucide="refresh-cw" class="w-4 h-4 text-gray-400"></i>
+            </div>
+            <div class="flex-1 mx-4">
+                <div class="bg-white border border-gray-300 rounded-lg px-3 py-1 text-sm text-gray-600">
+                    🔒 mindfulconnect.ai
+                </div>
+            </div>
+            <i data-lucide="more-horizontal" class="w-4 h-4 text-gray-400"></i>
+        </div>
+    </div>
+
+    <!-- Demo Banner -->
+    <div class="demo-banner text-white px-6 py-3">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-2 text-sm">
+                <span class="pulse-animation">🎯</span>
+                <span>Ready to share with the world?</span>
+            </div>
+            <button class="bg-white text-blue-600 px-4 py-1 rounded text-sm font-medium hover:bg-gray-100 transition-colors">
+                Publish
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="min-h-screen">
+        <!-- Hero Section -->
+        <div class="max-w-4xl mx-auto px-6 py-16 text-center">
+            <!-- Logo and Title -->
+            <div class="flex items-center justify-center mb-6 float-animation">
+                <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mr-4 shadow-lg">
+                    <i data-lucide="heart" class="w-8 h-8 text-white"></i>
+                </div>
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-900">MindfulConnect</h1>
+            </div>
+            
+            <p class="text-xl text-gray-600 mb-4 max-w-2xl mx-auto">
+                Your emotional companion powered by AI
+            </p>
+            
+            <div class="bg-yellow-100 border border-yellow-300 rounded-lg px-4 py-2 mb-8 inline-block">
+                <span class="text-yellow-800 text-sm font-medium">🎯 Demo Mode - Click any feature below to try it!</span>
+            </div>
+            
+            <button onclick="openFeature('ai-companion')" class="bg-purple-500 hover:bg-purple-600 text-white px-8 py-3 rounded-full font-semibold text-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
+                Try AI Companion
+            </button>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="max-w-4xl mx-auto px-6 mb-16">
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- AI Companion -->
+                <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 card-hover cursor-pointer" onclick="openFeature('ai-companion')">
+                    <div class="w-12 h-12 bg-teal-100 rounded-full flex items-center justify-center mb-6 feature-icon">
+                        <i data-lucide="message-circle" class="w-6 h-6 text-teal-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">AI Companion</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Chat with Aura, your multilingual AI companion that understands your emotions in 18+ Indian languages
+                    </p>
+                </div>
+
+                <!-- Virtual Community -->
+                <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 card-hover cursor-pointer" onclick="openFeature('virtual-community')">
+                    <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center mb-6 feature-icon">
+                        <i data-lucide="users" class="w-6 h-6 text-orange-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Virtual Community</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Connect with others in our 3D virtual world, share experiences, and build meaningful relationships
+                    </p>
+                </div>
+
+                <!-- Mood-Based Creation -->
+                <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 card-hover cursor-pointer" onclick="openFeature('mood-creation')">
+                    <div class="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center mb-6 feature-icon">
+                        <i data-lucide="palette" class="w-6 h-6 text-yellow-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Mood-Based Creation</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        Generate personalized art, music, and stories based on your emotional state and cultural preferences
+                    </p>
+                </div>
+
+                <!-- Emergency Support -->
+                <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 card-hover cursor-pointer" onclick="openFeature('emergency-support')">
+                    <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center mb-6 feature-icon">
+                        <i data-lucide="shield" class="w-6 h-6 text-red-600"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-3">Emergency Support</h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        24/7 crisis support with Indian helplines, emergency contacts, and immediate professional assistance
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="gradient-bg text-white py-16">
+            <div class="max-w-4xl mx-auto px-6 text-center">
+                <h2 class="text-3xl font-bold mb-4">Ready to feel understood?</h2>
+                <p class="text-xl mb-8 opacity-90">
+                    Join thousands of Indians finding emotional support in their native language
+                </p>
+                <button onclick="openFeature('ai-companion')" class="bg-white text-purple-600 px-8 py-3 rounded-full font-semibold text-lg hover:shadow-lg transition-all duration-200 transform hover:scale-105">
+                    Try Demo Now
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 py-8 mt-16">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <div class="flex items-center justify-center mb-4">
+                <div class="w-8 h-8 bg-gradient-to-r from-purple-500 to-purple-600 rounded-lg flex items-center justify-center mr-2">
+                    <i data-lucide="heart" class="w-4 h-4 text-white"></i>
+                </div>
+                <span class="text-lg font-semibold text-gray-900">MindfulConnect</span>
+            </div>
+            <p class="text-gray-600 text-sm mb-4">
+                Empowering mental wellness through AI technology • Made with ❤️ for India
+            </p>
+            <div class="flex justify-center space-x-6 text-sm text-gray-500">
+                <a href="#" class="hover:text-gray-700">About</a>
+                <a href="#" class="hover:text-gray-700">Privacy</a>
+                <a href="#" class="hover:text-gray-700">Terms</a>
+                <a href="#" class="hover:text-gray-700">Support</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <!-- AI Companion Modal -->
+    <div id="ai-companion-modal" class="modal">
+        <div class="modal-content w-full max-w-4xl">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-900">🤖 AI Companion - Demo</h2>
+                <button onclick="closeModal('ai-companion-modal')" class="text-gray-500 hover:text-gray-700">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                <h3 class="font-semibold text-blue-900 mb-2">🇮🇳 18+ Indian Regional Languages Supported:</h3>
+                <div class="language-grid">
+                    <div class="language-card" onclick="selectLanguage('hindi')">
+                        <div class="text-2xl mb-2">🇮🇳</div>
+                        <div class="font-medium">Hindi</div>
+                        <div class="text-sm text-gray-600">हिन्दी</div>
+                    </div>
+                    <div class="language-card" onclick="selectLanguage('bengali')">
+                        <div class="text-2xl mb-2">🇧🇩</div>
+                        <div class="font-medium">Bengali</div>
+                        <div class="text-sm text-gray-600">বাংলা</div>
+                    </div>
+                    <div class="language-card" onclick="selectLanguage('telugu')">
+                        <div class="text-2xl mb-2">🏛️</div>
+                        <div class="font-medium">Telugu</div>
+                        <div class="text-sm text-gray-600">తెలుగు</div>
+                    </div>
+                    <div class="language-card" onclick="selectLanguage('tamil')">
+                        <div class="text-2xl mb-2">🏛️</div>
+                        <div class="font-medium">Tamil</div>
+                        <div class="text-sm text-gray-600">தமிழ்</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-gray-50 rounded-lg p-6 mb-6">
+                <h3 class="font-semibold mb-4">🎥 Revolutionary Features:</h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="flex items-center space-x-3">
+                        <i data-lucide="video" class="w-5 h-5 text-green-600"></i>
+                        <span>3D AI Avatar Video Calls</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <i data-lucide="camera" class="w-5 h-5 text-blue-600"></i>
+                        <span>Real-time Emotion Detection</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <i data-lucide="mic" class="w-5 h-5 text-purple-600"></i>
+                        <span>Voice Recognition</span>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <i data-lucide="globe" class="w-5 h-5 text-orange-600"></i>
+                        <span>Multilingual Support</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <p class="text-gray-600 mb-4">This is a demo version. In the full version, you would have:</p>
+                <ul class="text-left text-gray-600 mb-6 space-y-2">
+                    <li>• Real-time AI conversations in your preferred language</li>
+                    <li>• Face-to-face video calls with 3D AI avatar</li>
+                    <li>• Emotion detection through camera and text analysis</li>
+                    <li>• Personalized therapy sessions and content generation</li>
+                </ul>
+                <button onclick="closeModal('ai-companion-modal')" class="bg-purple-500 text-white px-6 py-2 rounded-lg hover:bg-purple-600 transition-colors">
+                    Close Demo
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Virtual Community Modal -->
+    <div id="virtual-community-modal" class="modal">
+        <div class="modal-content w-full max-w-4xl">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-900">🌍 Virtual Community - Demo</h2>
+                <button onclick="closeModal('virtual-community-modal')" class="text-gray-500 hover:text-gray-700">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            
+            <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-6 mb-6">
+                <h3 class="font-semibold mb-4">🎮 3D Virtual World Features:</h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-white rounded-lg p-4">
+                        <h4 class="font-medium mb-2">🏛️ Virtual Spaces</h4>
+                        <p class="text-sm text-gray-600">Immersive 3D environments for social interaction</p>
+                    </div>
+                    <div class="bg-white rounded-lg p-4">
+                        <h4 class="font-medium mb-2">👤 Custom Avatars</h4>
+                        <p class="text-sm text-gray-600">Personalize your virtual representation</p>
+                    </div>
+                    <div class="bg-white rounded-lg p-4">
+                        <h4 class="font-medium mb-2">🤝 Social Connections</h4>
+                        <p class="text-sm text-gray-600">Connect with others based on shared experiences</p>
+                    </div>
+                    <div class="bg-white rounded-lg p-4">
+                        <h4 class="font-medium mb-2">🏆 Gamification</h4>
+                        <p class="text-sm text-gray-600">Earn XP, levels, and badges for positive interactions</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <p class="text-gray-600 mb-4">Experience the future of mental health support through virtual reality!</p>
+                <button onclick="closeModal('virtual-community-modal')" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                    Close Demo
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mood Creation Modal -->
+    <div id="mood-creation-modal" class="modal">
+        <div class="modal-content w-full max-w-4xl">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-900">🎨 Mood-Based Creation - Demo</h2>
+                <button onclick="closeModal('mood-creation-modal')" class="text-gray-500 hover:text-gray-700">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6 mb-6">
+                <div class="bg-pink-50 rounded-lg p-6 text-center">
+                    <i data-lucide="image" class="w-12 h-12 text-pink-600 mx-auto mb-4"></i>
+                    <h3 class="font-semibold mb-2">AI Image Generation</h3>
+                    <p class="text-sm text-gray-600">Create healing artwork based on your emotions</p>
+                </div>
+                <div class="bg-blue-50 rounded-lg p-6 text-center">
+                    <i data-lucide="film" class="w-12 h-12 text-blue-600 mx-auto mb-4"></i>
+                    <h3 class="font-semibold mb-2">AI Video Creation</h3>
+                    <p class="text-sm text-gray-600">Generate personalized therapeutic videos</p>
+                </div>
+                <div class="bg-green-50 rounded-lg p-6 text-center">
+                    <i data-lucide="music" class="w-12 h-12 text-green-600 mx-auto mb-4"></i>
+                    <h3 class="font-semibold mb-2">AI Music Composition</h3>
+                    <p class="text-sm text-gray-600">Create calming music for your mood</p>
+                </div>
+            </div>
+            
+            <div class="bg-orange-50 border border-orange-200 rounded-lg p-4 mb-6">
+                <h3 class="font-semibold text-orange-900 mb-2">🎵 Spotify Integration - Indian Music:</h3>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="text-center">
+                        <div class="text-2xl mb-2">🎬</div>
+                        <div class="font-medium">Bollywood</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl mb-2">🎼</div>
+                        <div class="font-medium">Classical</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl mb-2">🪕</div>
+                        <div class="font-medium">Folk</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <button onclick="closeModal('mood-creation-modal')" class="bg-pink-500 text-white px-6 py-2 rounded-lg hover:bg-pink-600 transition-colors">
+                    Close Demo
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Emergency Support Modal -->
+    <div id="emergency-support-modal" class="modal">
+        <div class="modal-content w-full max-w-4xl">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-900">🚨 Emergency Support - Demo</h2>
+                <button onclick="closeModal('emergency-support-modal')" class="text-gray-500 hover:text-gray-700">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            
+            <div class="bg-red-50 border border-red-200 rounded-lg p-6 mb-6">
+                <h3 class="font-semibold text-red-900 mb-4">🇮🇳 Indian Mental Health Crisis Helplines:</h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="bg-white rounded-lg p-4">
+                        <h4 class="font-semibold text-red-700">KIRAN Mental Health</h4>
+                        <p class="text-lg font-mono">1800-599-0019</p>
+                        <p class="text-sm text-gray-600">24/7 Toll-free helpline</p>
+                    </div>
+                    <div class="bg-white rounded-lg p-4">
+                        <h4 class="font-semibold text-red-700">Vandrevala Foundation</h4>
+                        <p class="text-lg font-mono">9999666555</p>
+                        <p class="text-sm text-gray-600">24/7 Crisis support</p>
+                    </div>
+                    <div class="bg-white rounded-lg p-4">
+                        <h4 class="font-semibold text-red-700">iCall</h4>
+                        <p class="text-lg font-mono">9152987821</p>
+                        <p class="text-sm text-gray-600">Mon-Sat, 8 AM-10 PM</p>
+                    </div>
+                    <div class="bg-white rounded-lg p-4">
+                        <h4 class="font-semibold text-red-700">Sneha India</h4>
+                        <p class="text-lg font-mono">044-24640050</p>
+                        <p class="text-sm text-gray-600">24/7 Emotional support</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                <h3 class="font-semibold text-blue-900 mb-2">🚑 Emergency Services:</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                    <div>
+                        <div class="font-semibold">Police</div>
+                        <div class="text-lg font-mono">100</div>
+                    </div>
+                    <div>
+                        <div class="font-semibold">Fire</div>
+                        <div class="text-lg font-mono">101</div>
+                    </div>
+                    <div>
+                        <div class="font-semibold">Ambulance</div>
+                        <div class="text-lg font-mono">108</div>
+                    </div>
+                    <div>
+                        <div class="font-semibold">Women Helpline</div>
+                        <div class="text-lg font-mono">1091</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center">
+                <p class="text-gray-600 mb-4">Remember: You are not alone. Help is always available.</p>
+                <button onclick="closeModal('emergency-support-modal')" class="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition-colors">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+        
+        // Feature navigation
+        function openFeature(feature) {
+            const modalId = feature + '-modal';
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        }
+        
+        function selectLanguage(language) {
+            alert(`Selected language: ${language}\n\nIn the full version, the AI would now communicate with you in ${language}!`);
+        }
+        
+        // Close modal when clicking outside
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const activeModal = document.querySelector('.modal.active');
+                if (activeModal) {
+                    activeModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            }
+        });
+        
+        // Add some interactive animations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add typing animation to the subtitle
+            const subtitle = document.querySelector('main p');
+            if (subtitle) {
+                subtitle.classList.add('typing-animation');
+            }
+            
+            // Add click tracking for analytics (demo)
+            document.querySelectorAll('.card-hover').forEach(card => {
+                card.addEventListener('click', function() {
+                    console.log('Feature clicked:', this.querySelector('h3').textContent);
+                });
+            });
+        });
+        
+        // Demo notification
+        setTimeout(() => {
+            if (!localStorage.getItem('demo-notification-shown')) {
+                alert('🎉 Welcome to MindfulConnect Demo!\n\n✨ This is a demonstration of our AI Mental Health Platform for India\n🇮🇳 Features 18+ regional languages\n🎥 3D AI video calls\n🎨 Multimedia generation\n🚨 Emergency support\n\nClick any feature card to explore!');
+                localStorage.setItem('demo-notification-shown', 'true');
+            }
+        }, 2000);
+    </script>
+</body>
+</html>
